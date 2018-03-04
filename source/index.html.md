@@ -2,16 +2,18 @@
 title: API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
-  - shell
-  - ruby
-  - python
-  - javascript
+  - python--boto2: boto2 (py)
+  - python--boto3: boto3 (py)
+  - ruby: Ruby 
+  - php: PHP (SDK)
+  - php--raw: PHP (no SDK)
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
+  - <a href='http://linus.ccs-internal.thegcloud.com/index.php?act=api'>Get an API Key</a>
+  - <a href='http://linus.ccs-internal.thegcloud.com/'>CCS control panel</a>
 
 includes:
+  - authentication
   - errors
 
 search: true
@@ -19,221 +21,183 @@ search: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to the Gigenet API version 2. This API is more secure, provides greater flexibility as well as compatibility with a large range of tools and SDKs. We recommend that all new integrations are built using this API.
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+This API version has been designed to be compatible to as large degree as possible with the Amazon Webservices API focusing primarily on the so-called [Elastic Compute Cloud API](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html). Compatibility with this API means that you can use the many different SDK available for different languages to interface with Gigenet's API just as you would Amazon web services. Some tools written for AWS might work without modification for use with our API, while others might require minimal changes. In addition to that, you can of course also set-up requests and connections directly to our API by easily implementing the interface yourself.
 
-This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
+This guide is meant for you to aquaint yourself with the subset of the AWS API that we implement. You can also reference with the [AWS API](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html) for more details, though beware that our API might ignore certain parameters specified in the AWS API documentation if they are incompatible or have no meaning with regards to our infrastructure.
 
-# Authentication
+## Overview of API
 
-> To authorize, use this code:
+For each API request you construct a query string which is then cryptographically signed using your authentication details. The API will process your request and then either return an error, a return of value or data set based on your API action. You can provide arguments to the API either as part of the query string or via parameters sent as part of the request body.
+
+Return values are returned as an XML document, containing the specified return values for each API function. If you need more examples of how the return values might look you can always also refer to the [AWS API documentation](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html) for the corresponding API function call.
+
+In case of errors, you will receive an HTTP error return code (400, 401 or 500) along with an XML document describing the error. 
+
+The GigeNET API server URL is [https://api.thegcloud.com](https://api.thegcloud.com). All API actions should be sent to the API server URL.
+
+## Supported AWS SDKs
+
+All standard AWS SDKs should work with the API. Compatibility has been verified for the following:
+
+ * AWS PHP SDK
+ * AWS Ruby SDK
+ * boto2 (Python)
+ * boto3 (Python)
+
+Other SDKs can be found on [the AWS pages](https://aws.amazon.com/tools/)..
+
+## Installing the SDK
+
+```python--boto2
+# Install pip if required
+easy_install pip
+
+# Install the boto2 SDK
+pip install boto
+```
+
+```python--boto3
+# Install pip if required
+easy_install pip
+
+# Install the boto2 SDK
+pip install boto3
+```
+
+```php
+# Install composer
+curl -sS https://getcomposer.org/installer | php
+
+# Install the latest AWS SDK
+php composer.phar require aws/aws-sdk-php
+```
 
 ```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
+# Install the latest AWS SDK
+gem install aws-sdk
 ```
 
-```python
-import kittn
+The SDKs can be installed using the standard package managers for your chosen languages.
 
-api = kittn.authorize('meowmeowmeow')
-```
+Even though using one of these SDKs is the simplest way to access the API, you can also manually use the REST API using custom code to create integrations without an SDK. In this documentation we have provied some examples of how to authenticate and make API calls without using an SDK.
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
-```
+## Creating API tokens
 
-```javascript
-const kittn = require('kittn');
+Before you can use the API, you will need to enable it,  create a new API and save the correct API keys.
+ 
+### Step 1. Create a new API application in the GigeNET client dashboard.
 
-let api = kittn.authorize('meowmeowmeow');
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
+![Create an application](1_step_new_app.gif "Creating a new application")
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+An application is the website or application that will be exchanging data with the API server.
+You must give your new application a name and specify the IP address of the server it will be running from.
+Although it is required to add an API application to enable your settings, you will only be needing your API Key and Hash to establish authentication.
 </aside>
 
-# Kittens
+![Updating application details](1_step_new_app_details.gif "Updating application details.")
 
-## Get All Kittens
 
-```ruby
-require 'kittn'
+### Step 2. Enable the use of the GigeNET API in your API settings.
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
+![Enabling the API](2_step_enable_api.gif "Enabling the API.")
 
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+<aside class="notice">
+The API is not enabled by default. Click the "Enable API" button and confirm in the pop up box.
 </aside>
 
-## Get a Specific Kitten
+### Step 3. Now click "Update API Key and Hash" to obtain your API key and hash code.
 
-```ruby
-require 'kittn'
+![Update API token and hash](2_step_create_key.gif "Updating the API token and hash.")
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
+<aside class="notice">
+You should now have a API Key and API Hash.
+These will allow you to connect to your VMs through the API so make sure you keep this info safe.
+You can update your key and hash at any time however you will need to also update these settings in your web app.
+</aside>
+
+![You know have full access to the API.](2_step_success.gif "Success API tokens generated")
+
+
+## Connecting to the API
+
+```python--boto2
+import boto
+
+conn = boto.connect_ec2_endpoint(
+	'https://api.thegcloud.com', 
+	'APIKEY', 
+	'APIHASH')
 ```
 
-```python
-import kittn
+```python--boto3
+import boto3
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
+conn = boto3.client('ec2', 
+		endpoint_url='https://api.thegcloud.com', 
+		aws_access_key_id='APIKEY', 
+		aws_secret_access_key='APIHASH', 
+		region_name='ord1');
 ```
 
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
+```php
+<?php
+
+require('vendor/autoload.php');
+
+use \Aws\Ec2\Ec2Client;
+
+$ec2Client = Ec2Client::factory(array(
+  'endpoint' => 'https://api.thegcloud.com',
+  'region' => 'ord1',
+  'credentials' => array(
+    'key' => 'APIKEY',
+    'secret' => 'APIHASH'
+  )
+));
 ```
 
-```javascript
-const kittn = require('kittn');
+```php--raw
+<?php
+/**
+* Generates an API signature for a given request using the V2 signature method.
+*
+* @param type $method GET or POST
+* @param type $host The HTTP host that will be used for this request (API endpoint).
+* @param type $uri The URI/path (ie. the request URI without query string or host). \ 
+		If there is no path component to the URI it needs to be set to `/`.
+* @param type $qs The query string (request key/values)
+* @param type $signature_method HMAC_SHA1 or HMAC_SHA256 - HMAC_SHA256 preferred.
+* @return type
+*/
+function signV2($method, $host, $uri, $qs, $signature_method, $secret_key) {
+  $canonicalRequest = "$method\n$host\n$uri\n$qs";
+  $signature_algos = 
+		array('HmacSHA256' => 'sha256', 'HmacSHA1' => 'sha1' );
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+  return base64_encode(
+    hash_hmac($signature_algos[$signature_method],
+    $canonicalRequest,
+    $secret_key,
+    true));
 }
 ```
 
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
 ```ruby
-require 'kittn'
+require 'aws-sdk'
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
+ec2 = Aws::EC2::Resource.new(
+  endpoint: 'https://api.thegcloud.com',
+  region: 'ord1',
+  access_key_id: 'APIKEY',
+  secret_access_key: 'APIHASH'
+)
 ```
 
-```python
-import kittn
+> Make sure to replace `APIKEY` with your API key and `APIHASH` with your API hash from the API settings page.
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
+Once you have an API key and hash you can use them together with the SDK of your choice, or generated signed requests through your own code. Sample code for connecting to the API is available on the left.
 
-```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
-```
-
-This endpoint deletes a specific kitten.
-
-### HTTP Request
-
-`DELETE http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
 
