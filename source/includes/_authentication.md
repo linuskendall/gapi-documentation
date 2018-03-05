@@ -39,6 +39,54 @@ sts = boto.sts.STSConnection(aws_access_key_id=APIKEY,
                              path='/'
                              region=RegionInfo(name='ord1', 
 																endpoint='api.thegcloud.com'))
+
+session = sts.get_session_token()
+```
+
+```python--boto3
+import boto3
+
+sts = boto3.client('sts',
+        endpoint_url='http://api.linus.ccs-internal.thegcloud.com',
+        aws_access_key_id='25e00bcb17ed9b11',
+        aws_secret_access_key='772cb21b1fd81f241aef86d6e8cc5e68',
+        region_name='ord1');
+
+session = sts.get_session_token()
+```
+
+```ruby
+require 'aws-sdk'
+
+sts = Aws::STS::Client.new(
+  endpoint: 'http://api.linus.ccs-internal.thegcloud.com',
+  region: 'ord1',
+  access_key_id: '25e00bcb17ed9b11',
+  secret_access_key: '772cb21b1fd81f241aef86d6e8cc5e68',
+  http_wire_trace: true
+)
+
+session = sts.get_session_token()
+```
+
+```php
+<?php
+
+require('vendor/autoload.php');
+
+use \Aws\Sts\StsClient;
+
+$stsClient = StsClient::factory(array(
+  'endpoint' => 'https://api.thegcloud.com',
+  'region' => 'ord1',
+  'credentials' => array(
+    'key' => 'APIKEY',
+    'secret' => 'APIHASH'
+  )
+));
+
+$session = $stsClient->GetSessionToken();
+
 ```
 
 To get time limited session tokens, we provide a small subset of the [AWS STS API](https://docs.aws.amazon.com/STS/latest/APIReference/Welcome.html) to allow you to generate time limited tokens. This can be useful in the scenario where you want a trusted service to provide tokens to less trusted services or user applications. As these tokens are time limited, there is less risk of issuing and providing these than there is in providing your main API credentials. 
@@ -47,15 +95,13 @@ To get time limited session tokens, we provide a small subset of the [AWS STS AP
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
-<GetSessionTokenResponse xmlns="http://ec2.amazonaws.com/doc/2016-11-15/">
+<GetSessionTokenResponse>
 	<GetSessionTokenResult>
 		<Credentials>
-			<item>
 				<SessionToken>SESSIONTOKEN</SessionToken>
 				<SecretAccessKey>SECRETACCESSKEY</SecretAccessKey>
 				<Expiration>2018-03-04T12:21:50+00:00</Expiration>
 				<AccessKeyId>SESSIONACCESSKEY</AccessKeyId>
-			</item>
 		</Credentials>
 	</GetSessionTokenResult>
 	<RequestID>12e6d6095ad5912a8b209e42e466afdb</RequestID>
