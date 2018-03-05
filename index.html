@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>API Reference</title>
 
+    <link href="images/favicon.ico" rel="icon" type="image/ico" />
+
     <style>
       .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
@@ -201,7 +203,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[&quot;python--boto2&quot;,&quot;python--boto3&quot;,&quot;ruby&quot;,&quot;php&quot;,&quot;php--raw&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -211,10 +213,11 @@
     <div class="toc-wrapper">
       <img src="images/logo.png" class="logo" alt="Logo" />
         <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
-              <a href="#" data-language-name="javascript">javascript</a>
+              <a href="#" data-language-name="python--boto2">boto2 (py)</a>
+              <a href="#" data-language-name="python--boto3">boto3 (py)</a>
+              <a href="#" data-language-name="ruby">Ruby</a>
+              <a href="#" data-language-name="php">PHP (SDK)</a>
+              <a href="#" data-language-name="php--raw">PHP (no SDK)</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -222,280 +225,476 @@
         <ul class="search-results"></ul>
       <div id="toc" class="toc-list-h1">
           <li>
-            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
-          </li>
-          <li>
-            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
-          </li>
-          <li>
-            <a href="#kittens" class="toc-h1 toc-link" data-title="Kittens">Kittens</a>
+            <a href="#introduction" class="toc-h1 toc-link" data-title="introduction">Introduction</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-all-kittens" class="toc-h2 toc-link" data-title="Get All Kittens">Get All Kittens</a>
+                    <a href="#overview-of-api" class="toc-h2 toc-link" data-title="overview-of-api">Overview of API</a>
                   </li>
                   <li>
-                    <a href="#get-a-specific-kitten" class="toc-h2 toc-link" data-title="Get a Specific Kitten">Get a Specific Kitten</a>
+                    <a href="#supported-aws-sdks" class="toc-h2 toc-link" data-title="supported-aws-sdks">Supported AWS SDKs</a>
                   </li>
                   <li>
-                    <a href="#delete-a-specific-kitten" class="toc-h2 toc-link" data-title="Delete a Specific Kitten">Delete a Specific Kitten</a>
+                    <a href="#installing-the-sdk" class="toc-h2 toc-link" data-title="installing-the-sdk">Installing the SDK</a>
+                  </li>
+                  <li>
+                    <a href="#creating-api-tokens" class="toc-h2 toc-link" data-title="creating-api-tokens">Creating API tokens</a>
+                  </li>
+                  <li>
+                    <a href="#connecting-to-the-api" class="toc-h2 toc-link" data-title="connecting-to-the-api">Connecting to the API</a>
                   </li>
               </ul>
           </li>
           <li>
-            <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
+            <a href="#authentication" class="toc-h1 toc-link" data-title="authentication">Authentication</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#signing-schemes" class="toc-h2 toc-link" data-title="signing-schemes">Signing schemes</a>
+                  </li>
+                  <li>
+                    <a href="#session-tokens" class="toc-h2 toc-link" data-title="session-tokens">Session Tokens</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#errors" class="toc-h1 toc-link" data-title="errors">Errors</a>
           </li>
       </div>
         <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
-            <li><a href='https://github.com/lord/slate'>Documentation Powered by Slate</a></li>
+            <li><a href='http://linus.ccs-internal.thegcloud.com/index.php?act=api'>Get an API Key</a></li>
+            <li><a href='http://linus.ccs-internal.thegcloud.com/'>GigeNET control panel</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+<p>Welcome to the Gigenet API version 2. This API is more secure, provides greater flexibility as well as compatibility with a large range of tools and SDKs. We recommend that all new integrations are built using this API.</p>
 
-<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>This API version has been designed to be compatible to as large degree as possible with the Amazon Webservices API focusing primarily on the so-called <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html">Elastic Compute Cloud API</a>. Compatibility with this API means that you can use the many different SDK available for different languages to interface with Gigenet&#39;s API just as you would Amazon web services. Some tools written for AWS might work without modification for use with our API, while others might require minimal changes. In addition to that, you can of course also set-up requests and connections directly to our API by easily implementing the interface yourself.</p>
 
-<p>This example API documentation page was created with <a href="https://github.com/lord/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&#39;s documentation.</p>
-<h1 id='authentication'>Authentication</h1>
-<blockquote>
-<p>To authorize, use this code:</p>
-</blockquote>
-<pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<p>This guide is meant for you to aquaint yourself with the subset of the AWS API that we implement. You can also reference with the <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html">AWS API</a> for more details, though beware that our API might ignore certain parameters specified in the AWS API documentation if they are incompatible or have no meaning with regards to our infrastructure.</p>
+<h2 id='overview-of-api'>Overview of API</h2>
+<p>For each API request you construct a query string which is then cryptographically signed using your authentication details. The API will process your request and then either return an error, a return of value or data set based on your API action. You can provide arguments to the API either as part of the query string or via parameters sent as part of the request body.</p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<p>Return values are returned as an XML document, containing the specified return values for each API function. If you need more examples of how the return values might look you can always also refer to the <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html">AWS API documentation</a> for the corresponding API function call.</p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
+<p>In case of errors, you will receive an HTTP error return code (400, 401 or 500) along with an XML document describing the error. </p>
 
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
+<p>The GigeNET API server URL is <a href="https://api.thegcloud.com">https://api.thegcloud.com</a>. All API actions should be sent to the API server URL.</p>
+<h2 id='supported-aws-sdks'>Supported AWS SDKs</h2>
+<p>All standard AWS SDKs should work with the API. Compatibility has been verified for the following:</p>
+
+<ul>
+<li>AWS PHP SDK</li>
+<li>AWS Ruby SDK</li>
+<li>boto2 (Python)</li>
+<li>boto3 (Python)</li>
+</ul>
+
+<p>Other SDKs can be found on <a href="https://aws.amazon.com/tools/">the AWS pages</a>..</p>
+<h2 id='installing-the-sdk'>Installing the SDK</h2><pre class="highlight python tab-python--boto2"><code><span class="c"># Install pip if required</span>
+<span class="n">easy_install</span> <span class="n">pip</span>
+
+<span class="c"># Install the boto2 SDK</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">boto</span>
+</code></pre><pre class="highlight python tab-python--boto3"><code><span class="c"># Install pip if required</span>
+<span class="n">easy_install</span> <span class="n">pip</span>
+
+<span class="c"># Install the boto2 SDK</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">boto3</span>
+</code></pre><pre class="highlight php tab-php"><code># Install composer
+curl -sS https://getcomposer.org/installer | php
+
+# Install the latest AWS SDK
+php composer.phar require aws/aws-sdk-php
+</code></pre><pre class="highlight ruby tab-ruby"><code><span class="c1"># Install the latest AWS SDK</span>
+<span class="n">gem</span> <span class="n">install</span> <span class="n">aws</span><span class="o">-</span><span class="n">sdk</span>
 </code></pre>
-<blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
-</blockquote>
+<p>The SDKs can be installed using the standard package managers for your chosen languages.</p>
 
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
-
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code>Authorization: meowmeowmeow</code></p>
+<p>Even though using one of these SDKs is the simplest way to access the API, you can also manually use the REST API using custom code to create integrations without an SDK. In this documentation we have provied some examples of how to authenticate and make API calls without using an SDK.</p>
+<h2 id='creating-api-tokens'>Creating API tokens</h2>
+<p>Before you can use the API, you will need to enable it,  create a new API applications and generate API keys which you will then be using to authenticate with the API. You can access the API settings rom the <a href="http://linus.ccs-internal.thegcloud.com/index.php?act=api">GigeNET client dashboard</a>.</p>
+<h3 id='step-1-create-a-new-api-application-in-the-gigenet-client-dashboard'>Step 1. Create a new API application in the GigeNET client dashboard.</h3>
+<p><img src="images/1_step_new_app.gif" title="Creating a new application" alt="Create an application" /></p>
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+An application is the website or application that will be exchanging data with the API server.
+You must give your new application a name and specify the IP address of the server it will be running from.
+Although it is required to add an API application to enable your settings, you will only be needing your API Key and Hash to establish authentication.
 </aside>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<p><img src="images/1_step_new_app_details.gif" title="Updating application details." alt="Updating application details" /></p>
+<h3 id='step-2-enable-the-use-of-the-gigenet-api-in-your-api-settings'>Step 2. Enable the use of the GigeNET API in your API settings.</h3>
+<p><img src="images/2_step_enable_api.gif" title="Enabling the API." alt="Enabling the API" /></p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
+<aside class="notice">
+The API is not enabled by default. Click the "Enable API" button and confirm in the pop up box.
+</aside>
+<h3 id='step-3-now-click-quot-update-api-key-and-hash-quot-to-obtain-your-api-key-and-hash-code'>Step 3. Now click &quot;Update API Key and Hash&quot; to obtain your API key and hash code.</h3>
+<p><img src="images/2_step_create_key.gif" title="Updating the API token and hash." alt="Update API token and hash" /></p>
 
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">kittens</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span>
+<aside class="notice">
+You should now have a API Key and API Hash.
+These will allow you to connect to your VMs through the API so make sure you keep this info safe.
+You can update your key and hash at any time however you will need to also update these settings in your web app.
+</aside>
+
+<p><img src="images/2_step_success.gif" title="Success API tokens generated" alt="You know have full access to the API." /></p>
+<h2 id='connecting-to-the-api'>Connecting to the API</h2><pre class="highlight python tab-python--boto2"><code><span class="kn">import</span> <span class="nn">boto</span>
+
+<span class="n">conn</span> <span class="o">=</span> <span class="n">boto</span><span class="o">.</span><span class="n">connect_ec2_endpoint</span><span class="p">(</span>
+    <span class="s">'https://api.thegcloud.com'</span><span class="p">,</span> 
+    <span class="s">'APIKEY'</span><span class="p">,</span> 
+    <span class="s">'APIHASH'</span><span class="p">)</span>
+</code></pre><pre class="highlight python tab-python--boto3"><code><span class="kn">import</span> <span class="nn">boto3</span>
+
+<span class="n">conn</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s">'ec2'</span><span class="p">,</span> 
+        <span class="n">endpoint_url</span><span class="o">=</span><span class="s">'https://api.thegcloud.com'</span><span class="p">,</span> 
+        <span class="n">aws_access_key_id</span><span class="o">=</span><span class="s">'APIKEY'</span><span class="p">,</span> 
+        <span class="n">aws_secret_access_key</span><span class="o">=</span><span class="s">'APIHASH'</span><span class="p">,</span> 
+        <span class="n">region_name</span><span class="o">=</span><span class="s">'ord1'</span><span class="p">);</span>
+</code></pre><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+
+<span class="k">require</span><span class="p">(</span><span class="s1">'vendor/autoload.php'</span><span class="p">);</span>
+
+<span class="k">use</span> <span class="nx">\Aws\Ec2\Ec2Client</span><span class="p">;</span>
+
+<span class="nv">$ec2Client</span> <span class="o">=</span> <span class="nx">Ec2Client</span><span class="o">::</span><span class="na">factory</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+  <span class="s1">'endpoint'</span> <span class="o">=&gt;</span> <span class="s1">'https://api.thegcloud.com'</span><span class="p">,</span>
+  <span class="s1">'region'</span> <span class="o">=&gt;</span> <span class="s1">'ord1'</span><span class="p">,</span>
+  <span class="s1">'credentials'</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">'key'</span> <span class="o">=&gt;</span> <span class="s1">'APIKEY'</span><span class="p">,</span>
+    <span class="s1">'secret'</span> <span class="o">=&gt;</span> <span class="s1">'APIHASH'</span>
+  <span class="p">)</span>
+<span class="p">));</span>
+</code></pre><pre class="highlight php tab-php--raw"><code><span class="cp">&lt;?php</span>
+<span class="sd">/**
+* Generates an API signature for a given request using the V2 signature method.
+*
+* @param type $method GET or POST
+* @param type $host The HTTP host that will be used for this request (API endpoint).
+* @param type $uri The URI/path (ie. the request URI without query string or host). \ 
+        If there is no path component to the URI it needs to be set to `/`.
+* @param type $qs The query string (request key/values)
+* @param type $signature_method HMAC_SHA1 or HMAC_SHA256 - HMAC_SHA256 preferred.
+* @return type
+*/</span>
+<span class="k">function</span> <span class="nf">signV2</span><span class="p">(</span><span class="nv">$method</span><span class="p">,</span> <span class="nv">$host</span><span class="p">,</span> <span class="nv">$uri</span><span class="p">,</span> <span class="nv">$qs</span><span class="p">,</span> <span class="nv">$signature_method</span><span class="p">,</span> <span class="nv">$secret_key</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nv">$canonicalRequest</span> <span class="o">=</span> <span class="s2">"</span><span class="nv">$method</span><span class="se">\n</span><span class="nv">$host</span><span class="se">\n</span><span class="nv">$uri</span><span class="se">\n</span><span class="nv">$qs</span><span class="s2">"</span><span class="p">;</span>
+  <span class="nv">$signature_algos</span> <span class="o">=</span> 
+        <span class="k">array</span><span class="p">(</span><span class="s1">'HmacSHA256'</span> <span class="o">=&gt;</span> <span class="s1">'sha256'</span><span class="p">,</span> <span class="s1">'HmacSHA1'</span> <span class="o">=&gt;</span> <span class="s1">'sha1'</span> <span class="p">);</span>
+
+  <span class="k">return</span> <span class="nb">base64_encode</span><span class="p">(</span>
+    <span class="nb">hash_hmac</span><span class="p">(</span><span class="nv">$signature_algos</span><span class="p">[</span><span class="nv">$signature_method</span><span class="p">],</span>
+    <span class="nv">$canonicalRequest</span><span class="p">,</span>
+    <span class="nv">$secret_key</span><span class="p">,</span>
+    <span class="kc">true</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'aws-sdk'</span>
+
+<span class="n">ec2</span> <span class="o">=</span> <span class="no">Aws</span><span class="o">::</span><span class="no">EC2</span><span class="o">::</span><span class="no">Resource</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span>
+  <span class="ss">endpoint: </span><span class="s1">'https://api.thegcloud.com'</span><span class="p">,</span>
+  <span class="ss">region: </span><span class="s1">'ord1'</span><span class="p">,</span>
+  <span class="ss">access_key_id: </span><span class="s1">'APIKEY'</span><span class="p">,</span>
+  <span class="ss">secret_access_key: </span><span class="s1">'APIHASH'</span>
+<span class="p">)</span>
 </code></pre>
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>Make sure to replace <code>APIKEY</code> with your API key and <code>APIHASH</code> with your API hash from the API settings page.</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
-<p>This endpoint retrieves all kittens.</p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code>GET http://example.com/api/kittens</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
+
+<p>Once you have an API key and hash you can use them together with the SDK of your choice, or generated signed requests through your own code. Sample code for connecting to the API is available on the left.</p>
+<h1 id='authentication'>Authentication</h1>
+<p>All requests to the API are required to be cryptographically signed. By first generating the request parameters and then applying a cryptographic hash function to the request before you send it you prove that the request really originated from you. In this way, we can verify the request but we can also ensure that expired requests are not re-used in case somebody gets access to the request.</p>
+
+<p>The signed requests are authenticated without transferring any secrets over the network, this means that while we recommend you always use HTTPS to ensure an SSL/TLS encrypted connection to the API, the request URLs themselves are not secret. The API hash/secret key should never be transferred over the network and should remain with you locally. Each request also has a timestamp or an expiry date affixed to it, meaning that if you want you can pre-create and pre-sign requests for a later date. Remember though that a signed request will be accepted by our servers as originating from you  - if you pre-create signed URLs and subsequently loose control of them you will need to reset the API token.</p>
+
+<p>We support the same process of signing requests as the Amazon Web Services API with both the V2 and V4 signing process supported. This means that you can follow their guide with regards to how to sign requests: http://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html.</p>
+
+<p>You can also generate new time limited secrets and access tokens using the GetSessionToken API call (described below). This is useful if you want to generate temporary credentials which can be used in exactly the same way as normal credentials. If you are using a temporary session token, you will need to attach it to every request as described in the <a href="http://docs.aws.amazon.com/STS/latest/UsingSTS/using-temp-creds.html">AWS API documentation</a>.</p>
+<h2 id='signing-schemes'>Signing schemes</h2>
+<p>You can use either the AWS <a href="https://docs.aws.amazon.com/general/latest/gr/signature-version-2.html">V2</a> or <a href="https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html">V4</a> signing process to send requests to our API. The V2 process generates a signature and appends it as a query string parameter, while the V4 process uses an <code>Authorization</code> header. The V4 process is the recommended one and is the one that all SDKs support. </p>
+
+<p>Sample V2 signed request URL:</p>
+
+<p><code>https://api.thegcloud.com?&amp;AWSAccessKeyId=APIKEY&amp;Action=DescribeInstances&amp;SignatureMethod=HmacSHA256&amp;SignatureVersion=2&amp;Timestamp=2011-10-03T15%3A19%3A30&amp;Version=2009-03-31&amp;Signature=calculated value</code></p>
+
+<p>Sample V4 Authorization header:</p>
+
+<p><code>Authorization: AWS4-HMAC-SHA256 Credential=APIKEY/20180304/ord1/ec2/aws4_request, SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=calculated value</code></p>
+
+<p>In the AWS API documentation you can find extensive details on how to generate a <a href="https://docs.aws.amazon.com/general/latest/gr/signature-version-2.html">V2 signature</a> or a <a href="https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html">V4 signature</a>.</p>
+
+<aside class="notice">
+You use your <code>APIHASH</code> to generate the signature, but this should never be provided in clear text in any of the API calls or transmitted over the wire. 
+</aside>
+<h2 id='session-tokens'>Session Tokens</h2><pre class="highlight python tab-python--boto2"><code><span class="kn">import</span> <span class="nn">boto</span>
+<span class="kn">import</span> <span class="nn">boto.sts</span>
+<span class="kn">from</span> <span class="nn">boto.regioninfo</span> <span class="kn">import</span> <span class="n">RegionInfo</span>
+
+<span class="n">sts</span> <span class="o">=</span> <span class="n">boto</span><span class="o">.</span><span class="n">sts</span><span class="o">.</span><span class="n">STSConnection</span><span class="p">(</span><span class="n">aws_access_key_id</span><span class="o">=</span><span class="n">APIKEY</span><span class="p">,</span>
+                             <span class="n">aws_secret_access_key</span><span class="o">=</span><span class="n">APIHASH</span>
+                             <span class="n">is_secure</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                             <span class="n">path</span><span class="o">=</span><span class="s">'/'</span>
+                             <span class="n">region</span><span class="o">=</span><span class="n">RegionInfo</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">'ord1'</span><span class="p">,</span> 
+                                                                <span class="n">endpoint</span><span class="o">=</span><span class="s">'api.thegcloud.com'</span><span class="p">))</span>
+
+<span class="n">session</span> <span class="o">=</span> <span class="n">sts</span><span class="o">.</span><span class="n">get_session_token</span><span class="p">()</span>
+</code></pre><pre class="highlight python tab-python--boto3"><code><span class="kn">import</span> <span class="nn">boto3</span>
+
+<span class="n">sts</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s">'sts'</span><span class="p">,</span>
+        <span class="n">endpoint_url</span><span class="o">=</span><span class="s">'http://api.linus.ccs-internal.thegcloud.com'</span><span class="p">,</span>
+        <span class="n">aws_access_key_id</span><span class="o">=</span><span class="s">'25e00bcb17ed9b11'</span><span class="p">,</span>
+        <span class="n">aws_secret_access_key</span><span class="o">=</span><span class="s">'772cb21b1fd81f241aef86d6e8cc5e68'</span><span class="p">,</span>
+        <span class="n">region_name</span><span class="o">=</span><span class="s">'ord1'</span><span class="p">);</span>
+
+<span class="n">session</span> <span class="o">=</span> <span class="n">sts</span><span class="o">.</span><span class="n">get_session_token</span><span class="p">()</span>
+</code></pre><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'aws-sdk'</span>
+
+<span class="n">sts</span> <span class="o">=</span> <span class="no">Aws</span><span class="o">::</span><span class="no">STS</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span>
+  <span class="ss">endpoint: </span><span class="s1">'http://api.linus.ccs-internal.thegcloud.com'</span><span class="p">,</span>
+  <span class="ss">region: </span><span class="s1">'ord1'</span><span class="p">,</span>
+  <span class="ss">access_key_id: </span><span class="s1">'25e00bcb17ed9b11'</span><span class="p">,</span>
+  <span class="ss">secret_access_key: </span><span class="s1">'772cb21b1fd81f241aef86d6e8cc5e68'</span><span class="p">,</span>
+  <span class="ss">http_wire_trace: </span><span class="kp">true</span>
+<span class="p">)</span>
+
+<span class="n">session</span> <span class="o">=</span> <span class="n">sts</span><span class="p">.</span><span class="nf">get_session_token</span><span class="p">()</span>
+</code></pre><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+
+<span class="k">require</span><span class="p">(</span><span class="s1">'vendor/autoload.php'</span><span class="p">);</span>
+
+<span class="k">use</span> <span class="nx">\Aws\Sts\StsClient</span><span class="p">;</span>
+
+<span class="nv">$stsClient</span> <span class="o">=</span> <span class="nx">StsClient</span><span class="o">::</span><span class="na">factory</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+  <span class="s1">'endpoint'</span> <span class="o">=&gt;</span> <span class="s1">'https://api.thegcloud.com'</span><span class="p">,</span>
+  <span class="s1">'region'</span> <span class="o">=&gt;</span> <span class="s1">'ord1'</span><span class="p">,</span>
+  <span class="s1">'credentials'</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">'key'</span> <span class="o">=&gt;</span> <span class="s1">'APIKEY'</span><span class="p">,</span>
+    <span class="s1">'secret'</span> <span class="o">=&gt;</span> <span class="s1">'APIHASH'</span>
+  <span class="p">)</span>
+<span class="p">));</span>
+
+<span class="nv">$session</span> <span class="o">=</span> <span class="nv">$stsClient</span><span class="o">-&gt;</span><span class="na">GetSessionToken</span><span class="p">();</span>
+
+</code></pre>
+<p>To get time limited session tokens, we provide a small subset of the <a href="https://docs.aws.amazon.com/STS/latest/APIReference/Welcome.html">AWS STS API</a> to allow you to generate time limited tokens. This can be useful in the scenario where you want a trusted service to provide tokens to less trusted services or user applications. As these tokens are time limited, there is less risk of issuing and providing these than there is in providing your main API credentials. </p>
+
+<blockquote>
+<p>The GetSessionToken API call returns XML like this:</p>
+</blockquote>
+<pre class="highlight xml tab-xml"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;GetSessionTokenResponse&gt;</span>
+    <span class="nt">&lt;GetSessionTokenResult&gt;</span>
+        <span class="nt">&lt;Credentials&gt;</span>
+                <span class="nt">&lt;SessionToken&gt;</span>SESSIONTOKEN<span class="nt">&lt;/SessionToken&gt;</span>
+                <span class="nt">&lt;SecretAccessKey&gt;</span>SECRETACCESSKEY<span class="nt">&lt;/SecretAccessKey&gt;</span>
+                <span class="nt">&lt;Expiration&gt;</span>2018-03-04T12:21:50+00:00<span class="nt">&lt;/Expiration&gt;</span>
+                <span class="nt">&lt;AccessKeyId&gt;</span>SESSIONACCESSKEY<span class="nt">&lt;/AccessKeyId&gt;</span>
+        <span class="nt">&lt;/Credentials&gt;</span>
+    <span class="nt">&lt;/GetSessionTokenResult&gt;</span>
+    <span class="nt">&lt;RequestID&gt;</span>12e6d6095ad5912a8b209e42e466afdb<span class="nt">&lt;/RequestID&gt;</span>
+<span class="nt">&lt;/GetSessionTokenResponse&gt;</span>
+</code></pre><h3 id='parameters'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
 <th>Default</th>
+<th>Required</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
+<td>DurationSeconds</td>
+<td>3600</td>
 <td>false</td>
-<td>If set to true, the result will also include cats.</td>
-</tr>
-<tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
-</tr>
-</tbody></table>
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint retrieves a specific kitten.</p>
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-<h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
-</tr>
-</tbody></table>
-<h2 id='delete-a-specific-kitten'>Delete a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -X DELETE
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"deleted"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">":("</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint deletes a specific kitten.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
-<p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters-2'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>ID</td>
-<td>The ID of the kitten to delete</td>
+<td>The number of seconds that the token should be valid for, minimum 900 and maximum 129600.</td>
 </tr>
 </tbody></table>
 <h1 id='errors'>Errors</h1>
-<aside class="notice">This error section is stored in a separate file in `includes/_errors.md`. Slate allows you to optionally separate out your docs into many files...just save them to the `includes` folder and add them to the top of your `index.md`'s frontmatter. Files are included in the order listed.</aside>
+<p>The HTTP error code returned from the API response will be one of:</p>
 
-<p>The Kittn API uses the following error codes:</p>
+<ul>
+<li>400 - A client or sender error occurred, meaning an error in the parameters or the conditions of the API call.</li>
+<li>401 - An authentication error occurred.</li>
+<li>500 - A server error, meaning that the server experienced an unexpected error or fault.</li>
+</ul>
+
+<p>4xx errors are as a result of the input you have provided to the API, while a 500 error means there has been an error in our backend - if it re-occurs please contact customer service.</p>
 
 <table><thead>
 <tr>
-<th>Error Code</th>
+<th>Type</th>
+<th>Exception Name</th>
 <th>Meaning</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>400</td>
-<td>Bad Request -- Your request sucks.</td>
+<td>Auth</td>
+<td>AuthFailure</td>
+<td>Your API authentication details are incorrect.</td>
 </tr>
 <tr>
-<td>401</td>
-<td>Unauthorized -- Your API key is wrong.</td>
+<td>Auth</td>
+<td>SignatureDoesNotMatch</td>
+<td>The signature you have calculated for the request is not valid.</td>
 </tr>
 <tr>
-<td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
+<td>Sender</td>
+<td>IncompleteSignature</td>
+<td>The signature provided lacked fields.</td>
 </tr>
 <tr>
-<td>404</td>
-<td>Not Found -- The specified kitten could not be found.</td>
+<td>Sender</td>
+<td>MissingAuthenticationToken</td>
+<td>No or incomplete authentication token provied.</td>
 </tr>
 <tr>
-<td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
+<td>Client</td>
+<td>MissingAction</td>
+<td>You did not specify an API action.</td>
 </tr>
 <tr>
-<td>406</td>
-<td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
+<td>Client</td>
+<td>InvalidAction</td>
+<td>The action you requested is not supported by our API.</td>
 </tr>
 <tr>
-<td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
+<td>Client</td>
+<td>RequestExpired</td>
+<td>The request expired, please try again.</td>
 </tr>
 <tr>
-<td>418</td>
-<td>I&#39;m a teapot.</td>
+<td>Client</td>
+<td>MalformedQueryString</td>
+<td>The query string provided with the request was invalid.</td>
 </tr>
 <tr>
-<td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
+<td>Client</td>
+<td>ValidationError</td>
+<td>Could not validate your input, one or more values are invalid.</td>
 </tr>
 <tr>
-<td>500</td>
-<td>Internal Server Error -- We had a problem with our server. Try again later.</td>
+<td>Client</td>
+<td>MissingParameter</td>
+<td>A required parameter for the API call is missing.</td>
 </tr>
 <tr>
-<td>503</td>
-<td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
+<td>Client</td>
+<td>AddressLimitExceeded</td>
+<td>You have used the maximum number of addresses.</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>MaxSpotInstanceCountExceeded</td>
+<td>You have requested too many instances.</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>RequestResourceCountExceeded</td>
+<td>You have exceedd the limit for the number of resources you are trying to create.</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>TagLimitExceeded</td>
+<td>You have used the maximum number of tags on your account.</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>InsufficientFunds</td>
+<td>There is too little funds to execute this operation.</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>InvalidInstanceAttributeValue</td>
+<td>One of the attributes specified for the instance is invalid.</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>InvalidInstanceType</td>
+<td>The instance type requested for the cloud machine was invalid.</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>InvalidParameterValue</td>
+<td>One of the parameters provided had an invalid format.</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>InvalidAMIID.NotFound</td>
+<td>The cloud machine image requested could not be found.</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>InvalidAMIID.NotAvailable</td>
+<td>The cloud machine image requested is not available for new instances.</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>InvalidHostname.Duplicate</td>
+<td>You specified a duplicate hostname.</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>InvalidSubnetID.NotFound</td>
+<td>The network subnet id provided was not found.</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>InvalidState</td>
+<td>The cloud machine is in an invalid state to run this action.</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>InvalidInstanceID.NotFound</td>
+<td>The cloud machine instance you specified could not be found.</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>InvalidZone.NotFound</td>
+<td>The region or zone you specified is invalid.</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>InvalidAddress.NotFound</td>
+<td>The address you specified could not be found.</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>InvalidInput</td>
+<td>An invalid input was rovided to the call.</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>InvalidKeyPair.NotFound</td>
+<td>The corresponding SSH Key could not be found.</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>InvalidKeyPair.Duplicate</td>
+<td>A duplicate SSH key was uploaded.</td>
+</tr>
+<tr>
+<td>Server</td>
+<td>DryRunOperation</td>
+<td>The DryRun succeeded, the API call could be executed and permission was given to run it.</td>
+</tr>
+<tr>
+<td>Server</td>
+<td>ServerError</td>
+<td>An internal error occurred, try later or contact customer service.</td>
 </tr>
 </tbody></table>
 
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
-                <a href="#" data-language-name="javascript">javascript</a>
+                <a href="#" data-language-name="python--boto2">boto2 (py)</a>
+                <a href="#" data-language-name="python--boto3">boto3 (py)</a>
+                <a href="#" data-language-name="ruby">Ruby</a>
+                <a href="#" data-language-name="php">PHP (SDK)</a>
+                <a href="#" data-language-name="php--raw">PHP (no SDK)</a>
           </div>
       </div>
     </div>
