@@ -369,16 +369,13 @@ You can update your key and hash at any time however you will need to also updat
   <span class="p">)</span>
 <span class="p">));</span>
 </code></pre><pre class="highlight php tab-php--raw"><code><span class="cp">&lt;?php</span>
+<span class="sd">/** 
+* This example illustrates how to generate a signed URL to make an API request
+* without depending on any external libraries.
+*/</span>
+
 <span class="sd">/**
 * Generates an API signature for a given request using the V2 signature method.
-*
-* @param type $method GET or POST
-* @param type $host The HTTP host that will be used for this request (API endpoint).
-* @param type $uri The URI/path (ie. the request URI without query string or host). \ 
-        If there is no path component to the URI it needs to be set to `/`.
-* @param type $qs The query string (request key/values)
-* @param type $signature_method HMAC_SHA1 or HMAC_SHA256 - HMAC_SHA256 preferred.
-* @return type
 */</span>
 <span class="k">function</span> <span class="nf">signV2</span><span class="p">(</span><span class="nv">$method</span><span class="p">,</span> <span class="nv">$host</span><span class="p">,</span> <span class="nv">$uri</span><span class="p">,</span> <span class="nv">$qs</span><span class="p">,</span> <span class="nv">$signature_method</span><span class="p">,</span> <span class="nv">$secret_key</span><span class="p">)</span> <span class="p">{</span>
   <span class="nv">$canonicalRequest</span> <span class="o">=</span> <span class="s2">"</span><span class="nv">$method</span><span class="se">\n</span><span class="nv">$host</span><span class="se">\n</span><span class="nv">$uri</span><span class="se">\n</span><span class="nv">$qs</span><span class="s2">"</span><span class="p">;</span>
@@ -391,7 +388,45 @@ You can update your key and hash at any time however you will need to also updat
     <span class="nv">$secret_key</span><span class="p">,</span>
     <span class="kc">true</span><span class="p">));</span>
 <span class="p">}</span>
-</code></pre><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'aws-sdk'</span>
+<span class="sd">/**
+ * Constructs an API request URL
+ */</span>
+<span class="k">function</span> <span class="nf">apiRequestURL</span><span class="p">(</span><span class="nv">$endpoint</span><span class="p">,</span> <span class="nv">$access_key</span><span class="p">,</span> <span class="nv">$secret_key</span><span class="p">,</span> <span class="nv">$Action</span><span class="p">,</span> <span class="nv">$Parameters</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nv">$timestamp</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DateTime</span><span class="p">();</span>
+  <span class="nv">$api_endpoint</span> <span class="o">=</span> <span class="nb">parse_url</span><span class="p">(</span><span class="nv">$endpoint</span><span class="p">);</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$api_endpoint</span><span class="p">[</span><span class="s1">'host'</span><span class="p">]))</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nx">Exception</span><span class="p">(</span><span class="s1">'Invalid endpoint URL provided'</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$api_endpoint</span><span class="p">[</span><span class="s1">'scheme'</span><span class="p">]))</span>
+    <span class="nv">$api_endpoint</span><span class="p">[</span><span class="s1">'scheme'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'http'</span><span class="p">;</span>
+  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$api_endpoint</span><span class="p">[</span><span class="s1">'path'</span><span class="p">]))</span>
+    <span class="nv">$api_endpoint</span><span class="p">[</span><span class="s1">'path'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'/'</span><span class="p">;</span>
+
+  <span class="nv">$qs</span> <span class="o">=</span> <span class="s1">'AWSKeyId='</span><span class="o">.</span><span class="nv">$access_key</span>
+    <span class="o">.</span><span class="s1">'&amp;Action='</span><span class="o">.</span><span class="nv">$Action</span>
+    <span class="o">.</span><span class="s1">'&amp;SignatureMethod=HmacSHA256'</span>
+    <span class="o">.</span><span class="s1">'&amp;SignatureVersion=2'</span>
+    <span class="o">.</span><span class="s1">'&amp;Timestamp='</span><span class="o">.</span><span class="nb">urlencode</span><span class="p">(</span><span class="nv">$timestamp</span><span class="o">-&gt;</span><span class="na">format</span><span class="p">(</span><span class="s2">"c"</span><span class="p">))</span>
+    <span class="o">.</span><span class="nv">$Parameters</span><span class="p">;</span>
+
+  <span class="k">return</span> <span class="nv">$api_endpoint</span><span class="p">[</span><span class="s1">'scheme'</span><span class="p">]</span><span class="o">.</span><span class="s1">'://'</span><span class="o">.</span><span class="nv">$api_endpoint</span><span class="p">[</span><span class="s1">'host'</span><span class="p">]</span><span class="o">.</span><span class="s1">'?'</span><span class="o">.</span><span class="nv">$qs</span>
+    <span class="o">.</span><span class="s1">'&amp;Signature='</span><span class="o">.</span><span class="nb">urlencode</span><span class="p">(</span>
+      <span class="nx">signV2</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,</span>
+          <span class="nv">$api_endpoint</span><span class="p">[</span><span class="s1">'host'</span><span class="p">],</span>
+          <span class="nv">$api_endpoint</span><span class="p">[</span><span class="s1">'path'</span><span class="p">],</span>
+          <span class="nv">$qs</span><span class="p">,</span>
+          <span class="s1">'HmacSHA256'</span><span class="p">,</span>
+          <span class="nv">$secret_key</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="nv">$api_url</span> <span class="o">=</span> <span class="s1">'https://api.thegcloud.com'</span><span class="p">;</span>
+<span class="nv">$access_key</span> <span class="o">=</span> <span class="s1">'APIKEY'</span><span class="p">;</span>
+<span class="nv">$secret_key</span> <span class="o">=</span> <span class="s1">'APIHASH'</span><span class="p">;</span>
+
+<span class="nv">$url</span> <span class="o">=</span> <span class="nx">apiRequestUrl</span><span class="p">(</span><span class="nv">$api_url</span><span class="p">,</span> <span class="nv">$access_key</span><span class="p">,</span> <span class="nv">$secret_key</span><span class="p">,</span> <span class="s1">'APIACTION'</span><span class="p">,</span> <span class="s1">'&amp;Param1=Val&amp;Param2=Val'</span><span class="p">);</span>
+
+<span class="c1">// $url can now be fetched using GET HTTP Request
+</span></code></pre><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'aws-sdk'</span>
 
 <span class="n">ec2</span> <span class="o">=</span> <span class="no">Aws</span><span class="o">::</span><span class="no">EC2</span><span class="o">::</span><span class="no">Resource</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span>
   <span class="ss">endpoint: </span><span class="s1">'https://api.thegcloud.com'</span><span class="p">,</span>
@@ -477,7 +512,72 @@ You use your <code>APIHASH</code> to generate the signature, but this should nev
 <span class="p">));</span>
 
 <span class="nv">$session</span> <span class="o">=</span> <span class="nv">$stsClient</span><span class="o">-&gt;</span><span class="na">GetSessionToken</span><span class="p">();</span>
-</code></pre><pre class="highlight php tab-php--raw"><code>
+</code></pre><pre class="highlight php tab-php--raw"><code><span class="cp">&lt;?php</span>
+<span class="sd">/** 
+* This example uses Guzzle which can be installed through composer: php composer.phar require guzzle/guzzle
+*/</span>
+<span class="k">require</span><span class="p">(</span><span class="s1">'vendor/autoload.php'</span><span class="p">);</span>
+
+<span class="nx">Guzzle\Http\StaticClient</span><span class="o">::</span><span class="na">mount</span><span class="p">();</span>
+
+<span class="sd">/**
+* Generates an API signature for a given request using the V2 signature method.
+*/</span>
+<span class="k">function</span> <span class="nf">signV2</span><span class="p">(</span><span class="nv">$method</span><span class="p">,</span> <span class="nv">$host</span><span class="p">,</span> <span class="nv">$uri</span><span class="p">,</span> <span class="nv">$qs</span><span class="p">,</span> <span class="nv">$signature_method</span><span class="p">,</span> <span class="nv">$secret_key</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nv">$canonicalRequest</span> <span class="o">=</span> <span class="s2">"</span><span class="nv">$method</span><span class="se">\n</span><span class="nv">$host</span><span class="se">\n</span><span class="nv">$uri</span><span class="se">\n</span><span class="nv">$qs</span><span class="s2">"</span><span class="p">;</span>
+  <span class="nv">$signature_algos</span> <span class="o">=</span> 
+        <span class="k">array</span><span class="p">(</span><span class="s1">'HmacSHA256'</span> <span class="o">=&gt;</span> <span class="s1">'sha256'</span><span class="p">,</span> <span class="s1">'HmacSHA1'</span> <span class="o">=&gt;</span> <span class="s1">'sha1'</span> <span class="p">);</span>
+
+  <span class="k">return</span> <span class="nb">base64_encode</span><span class="p">(</span>
+    <span class="nb">hash_hmac</span><span class="p">(</span><span class="nv">$signature_algos</span><span class="p">[</span><span class="nv">$signature_method</span><span class="p">],</span>
+    <span class="nv">$canonicalRequest</span><span class="p">,</span>
+    <span class="nv">$secret_key</span><span class="p">,</span>
+    <span class="kc">true</span><span class="p">));</span>
+<span class="p">}</span>
+<span class="sd">/**
+ * Constructs an API request URL
+ */</span>
+<span class="k">function</span> <span class="nf">apiRequestURL</span><span class="p">(</span><span class="nv">$endpoint</span><span class="p">,</span> <span class="nv">$access_key</span><span class="p">,</span> <span class="nv">$secret_key</span><span class="p">,</span> <span class="nv">$Action</span><span class="p">,</span> <span class="nv">$Parameters</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nv">$timestamp</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DateTime</span><span class="p">();</span>
+  <span class="nv">$api_endpoint</span> <span class="o">=</span> <span class="nb">parse_url</span><span class="p">(</span><span class="nv">$endpoint</span><span class="p">);</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$api_endpoint</span><span class="p">[</span><span class="s1">'host'</span><span class="p">]))</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nx">Exception</span><span class="p">(</span><span class="s1">'Invalid endpoint URL provided'</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$api_endpoint</span><span class="p">[</span><span class="s1">'scheme'</span><span class="p">]))</span>
+    <span class="nv">$api_endpoint</span><span class="p">[</span><span class="s1">'scheme'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'http'</span><span class="p">;</span>
+  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$api_endpoint</span><span class="p">[</span><span class="s1">'path'</span><span class="p">]))</span>
+    <span class="nv">$api_endpoint</span><span class="p">[</span><span class="s1">'path'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'/'</span><span class="p">;</span>
+
+  <span class="nv">$qs</span> <span class="o">=</span> <span class="s1">'AWSKeyId='</span><span class="o">.</span><span class="nv">$access_key</span>
+    <span class="o">.</span><span class="s1">'&amp;Action='</span><span class="o">.</span><span class="nv">$Action</span>
+    <span class="o">.</span><span class="s1">'&amp;SignatureMethod=HmacSHA256'</span>
+    <span class="o">.</span><span class="s1">'&amp;SignatureVersion=2'</span>
+    <span class="o">.</span><span class="s1">'&amp;Timestamp='</span><span class="o">.</span><span class="nb">urlencode</span><span class="p">(</span><span class="nv">$timestamp</span><span class="o">-&gt;</span><span class="na">format</span><span class="p">(</span><span class="s2">"c"</span><span class="p">))</span>
+    <span class="o">.</span><span class="nv">$Parameters</span><span class="p">;</span>
+
+  <span class="k">return</span> <span class="nv">$api_endpoint</span><span class="p">[</span><span class="s1">'scheme'</span><span class="p">]</span><span class="o">.</span><span class="s1">'://'</span><span class="o">.</span><span class="nv">$api_endpoint</span><span class="p">[</span><span class="s1">'host'</span><span class="p">]</span><span class="o">.</span><span class="s1">'?'</span><span class="o">.</span><span class="nv">$qs</span>
+    <span class="o">.</span><span class="s1">'&amp;Signature='</span><span class="o">.</span><span class="nb">urlencode</span><span class="p">(</span>
+      <span class="nx">signV2</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,</span>
+          <span class="nv">$api_endpoint</span><span class="p">[</span><span class="s1">'host'</span><span class="p">],</span>
+          <span class="nv">$api_endpoint</span><span class="p">[</span><span class="s1">'path'</span><span class="p">],</span>
+          <span class="nv">$qs</span><span class="p">,</span>
+          <span class="s1">'HmacSHA256'</span><span class="p">,</span>
+          <span class="nv">$secret_key</span><span class="p">));</span>
+<span class="p">}</span>
+<span class="sd">/**
+ * Executes an API request
+ */</span>
+<span class="k">function</span> <span class="nf">apiRequest</span><span class="p">(</span><span class="nv">$Action</span><span class="p">,</span> <span class="nv">$Parameters</span><span class="o">=</span><span class="s1">''</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">global</span> <span class="nv">$api_url</span><span class="p">,</span> <span class="nv">$access_key</span><span class="p">,</span> <span class="nv">$secret_key</span><span class="p">;</span>
+  <span class="nv">$res</span> <span class="o">=</span> <span class="nx">Guzzle</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="nx">apiRequestUrl</span><span class="p">(</span><span class="nv">$api_url</span><span class="p">,</span> <span class="nv">$access_key</span><span class="p">,</span> <span class="nv">$secret_key</span><span class="p">,</span> <span class="nv">$Action</span><span class="p">,</span> <span class="nv">$Parameters</span><span class="p">));</span>
+  <span class="k">return</span> <span class="nv">$res</span><span class="o">-&gt;</span><span class="na">getBody</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="nv">$access_key</span> <span class="o">=</span> <span class="s1">'APIKEY'</span><span class="p">;</span>
+<span class="nv">$secret_key</span> <span class="o">=</span> <span class="s1">'APIHASH'</span><span class="p">;</span>
+<span class="nv">$api_url</span> <span class="o">=</span> <span class="s1">'https://api.thegcloud.com'</span><span class="p">;</span>
+
+<span class="nv">$sessionXml</span> <span class="o">=</span> <span class="nx">apiRequest</span><span class="p">(</span><span class="s1">'GetSessionToken'</span><span class="p">);</span>
 </code></pre>
 <p>To get time limited session tokens, we provide a small subset of the <a href="https://docs.aws.amazon.com/STS/latest/APIReference/Welcome.html">AWS STS API</a> to allow you to generate time limited tokens. This can be useful in the scenario where you want a trusted service to provide tokens to less trusted services or user applications. As these tokens are time limited, there is less risk of issuing and providing these than there is in providing your main API credentials. </p>
 
@@ -486,15 +586,15 @@ You use your <code>APIHASH</code> to generate the signature, but this should nev
 </blockquote>
 <pre class="highlight xml tab-xml"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 <span class="nt">&lt;GetSessionTokenResponse&gt;</span>
-    <span class="nt">&lt;GetSessionTokenResult&gt;</span>
-        <span class="nt">&lt;Credentials&gt;</span>
-                <span class="nt">&lt;SessionToken&gt;</span>SESSIONTOKEN<span class="nt">&lt;/SessionToken&gt;</span>
-                <span class="nt">&lt;SecretAccessKey&gt;</span>SECRETACCESSKEY<span class="nt">&lt;/SecretAccessKey&gt;</span>
-                <span class="nt">&lt;Expiration&gt;</span>2018-03-04T12:21:50+00:00<span class="nt">&lt;/Expiration&gt;</span>
-                <span class="nt">&lt;AccessKeyId&gt;</span>SESSIONACCESSKEY<span class="nt">&lt;/AccessKeyId&gt;</span>
-        <span class="nt">&lt;/Credentials&gt;</span>
-    <span class="nt">&lt;/GetSessionTokenResult&gt;</span>
-    <span class="nt">&lt;RequestID&gt;</span>12e6d6095ad5912a8b209e42e466afdb<span class="nt">&lt;/RequestID&gt;</span>
+  <span class="nt">&lt;GetSessionTokenResult&gt;</span>
+    <span class="nt">&lt;Credentials&gt;</span>
+      <span class="nt">&lt;SessionToken&gt;</span>SESSIONTOKEN<span class="nt">&lt;/SessionToken&gt;</span>
+      <span class="nt">&lt;SecretAccessKey&gt;</span>SECRETACCESSKEY<span class="nt">&lt;/SecretAccessKey&gt;</span>
+      <span class="nt">&lt;Expiration&gt;</span>2018-03-04T12:21:50+00:00<span class="nt">&lt;/Expiration&gt;</span>
+      <span class="nt">&lt;AccessKeyId&gt;</span>SESSIONACCESSKEY<span class="nt">&lt;/AccessKeyId&gt;</span>
+    <span class="nt">&lt;/Credentials&gt;</span>
+  <span class="nt">&lt;/GetSessionTokenResult&gt;</span>
+  <span class="nt">&lt;RequestID&gt;</span>12e6d6095ad5912a8b209e42e466afdb<span class="nt">&lt;/RequestID&gt;</span>
 <span class="nt">&lt;/GetSessionTokenResponse&gt;</span>
 </code></pre><h3 id='parameters'>Parameters</h3>
 <table><thead>
