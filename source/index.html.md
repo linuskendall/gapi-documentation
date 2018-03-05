@@ -14,6 +14,12 @@ toc_footers:
 
 includes:
   - authentication
+  - cloud_machines
+  - images
+  - network
+  - regions
+  - ssh_keys
+  - tags
   - errors
 
 search: true
