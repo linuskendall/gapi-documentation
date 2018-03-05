@@ -10,7 +10,7 @@ language_tabs: # must be one of https://git.io/vQNgJ
 
 toc_footers:
   - <a href='http://linus.ccs-internal.thegcloud.com/index.php?act=api'>Get an API Key</a>
-  - <a href='http://linus.ccs-internal.thegcloud.com/'>CCS control panel</a>
+  - <a href='http://linus.ccs-internal.thegcloud.com/'>GigeNET control panel</a>
 
 includes:
   - authentication
@@ -85,8 +85,8 @@ Even though using one of these SDKs is the simplest way to access the API, you c
 
 ## Creating API tokens
 
-Before you can use the API, you will need to enable it,  create a new API and save the correct API keys.
- 
+Before you can use the API, you will need to enable it,  create a new API applications and generate API keys which you will then be using to authenticate with the API. You can access the API settings rom the [GigeNET client dashboard](http://linus.ccs-internal.thegcloud.com/index.php?act=api).
+
 ### Step 1. Create a new API application in the GigeNET client dashboard.
 
 ![Create an application](1_step_new_app.gif "Creating a new application")
