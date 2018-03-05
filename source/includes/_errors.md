@@ -1,5 +1,20 @@
 # Errors
 
+> Sample XML error response from the API:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<Response>
+	<Errors>
+		<Error>
+			<Code>MalformedQueryString</Code>
+			<Message>You have provided a malformed query string</Message>
+		</Error>
+	</Errors>
+	<RequestID>35d1289884eb27ee28057a28d69b72ed</RequestID>
+</Response>
+```
+
 The HTTP error code returned from the API response will be one of:
  
  * 400 - A client or sender error occurred, meaning an error in the parameters or the conditions of the API call.
