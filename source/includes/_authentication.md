@@ -33,12 +33,12 @@ import boto
 import boto.sts
 from boto.regioninfo import RegionInfo
 
-sts = boto.sts.STSConnection(aws_access_key_id=APIKEY,
-                             aws_secret_access_key=APIHASH
+sts = boto.sts.STSConnection(aws_access_key_id='APIKEY',
+                             aws_secret_access_key='APIHASH',
                              is_secure=True,
                              path='/'
                              region=RegionInfo(name='ord1', 
-																endpoint='api.thegcloud.com'))
+				                      endpoint='api.thegcloud.com'))
 
 session = sts.get_session_token()
 ```
@@ -47,9 +47,9 @@ session = sts.get_session_token()
 import boto3
 
 sts = boto3.client('sts',
-        endpoint_url='http://api.linus.ccs-internal.thegcloud.com',
-        aws_access_key_id='25e00bcb17ed9b11',
-        aws_secret_access_key='772cb21b1fd81f241aef86d6e8cc5e68',
+        endpoint_url='https://api.thegcloud.com',
+        aws_access_key_id='APIKEY',
+        aws_secret_access_key='APIHASH',
         region_name='ord1');
 
 session = sts.get_session_token()
@@ -59,10 +59,10 @@ session = sts.get_session_token()
 require 'aws-sdk'
 
 sts = Aws::STS::Client.new(
-  endpoint: 'http://api.linus.ccs-internal.thegcloud.com',
+  endpoint: 'https://api.thegcloud.com',
   region: 'ord1',
-  access_key_id: '25e00bcb17ed9b11',
-  secret_access_key: '772cb21b1fd81f241aef86d6e8cc5e68',
+  access_key_id: 'APIKEY',
+  secret_access_key: 'APIHASH',
   http_wire_trace: true
 )
 
@@ -86,7 +86,75 @@ $stsClient = StsClient::factory(array(
 ));
 
 $session = $stsClient->GetSessionToken();
+```
 
+```php--raw
+<?php
+/** 
+* This example uses Guzzle which can be installed through composer: php composer.phar require guzzle/guzzle
+*/
+require('vendor/autoload.php');
+
+Guzzle\Http\StaticClient::mount();
+
+/**
+* Generates an API signature for a given request using the V2 signature method.
+*/
+function signV2($method, $host, $uri, $qs, $signature_method, $secret_key) {
+  $canonicalRequest = "$method\n$host\n$uri\n$qs";
+  $signature_algos = 
+		array('HmacSHA256' => 'sha256', 'HmacSHA1' => 'sha1' );
+
+  return base64_encode(
+    hash_hmac($signature_algos[$signature_method],
+    $canonicalRequest,
+    $secret_key,
+    true));
+}
+/**
+ * Constructs an API request URL
+ */
+function apiRequestURL($endpoint, $access_key, $secret_key, $Action, $Parameters) {
+  $timestamp = new DateTime();
+  $api_endpoint = parse_url($endpoint);
+
+  if(!isset($api_endpoint['host']))
+    throw new Exception('Invalid endpoint URL provided');
+  if(!isset($api_endpoint['scheme']))
+    $api_endpoint['scheme'] = 'http';
+  if(!isset($api_endpoint['path']))
+    $api_endpoint['path'] = '/';
+
+  $qs = 'AWSKeyId='.$access_key
+    .'&Action='.$Action
+    .'&SignatureMethod=HmacSHA256'
+    .'&SignatureVersion=2'
+    .'&Timestamp='.urlencode($timestamp->format("c"))
+    .$Parameters;
+
+  return $api_endpoint['scheme'].'://'.$api_endpoint['host'].'?'.$qs
+    .'&Signature='.urlencode(
+      signV2('GET',
+          $api_endpoint['host'],
+          $api_endpoint['path'],
+          $qs,
+          'HmacSHA256',
+          $secret_key));
+}
+/**
+ * Executes an API request
+ */
+function apiRequest($Action, $Parameters='') {
+  global $api_url, $access_key, $secret_key;
+  $res = Guzzle::get(apiRequestUrl($api_url, $access_key, $secret_key, $Action, $Parameters));
+  return $res->getBody();
+}
+
+$access_key = 'APIKEY';
+$secret_key = 'APIHASH';
+$api_url = 'https://api.thegcloud.com';
+
+$sessionXml = apiRequest('GetSessionToken');
 ```
 
 To get time limited session tokens, we provide a small subset of the [AWS STS API](https://docs.aws.amazon.com/STS/latest/APIReference/Welcome.html) to allow you to generate time limited tokens. This can be useful in the scenario where you want a trusted service to provide tokens to less trusted services or user applications. As these tokens are time limited, there is less risk of issuing and providing these than there is in providing your main API credentials. 
@@ -96,15 +164,15 @@ To get time limited session tokens, we provide a small subset of the [AWS STS AP
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <GetSessionTokenResponse>
-	<GetSessionTokenResult>
-		<Credentials>
-				<SessionToken>SESSIONTOKEN</SessionToken>
-				<SecretAccessKey>SECRETACCESSKEY</SecretAccessKey>
-				<Expiration>2018-03-04T12:21:50+00:00</Expiration>
-				<AccessKeyId>SESSIONACCESSKEY</AccessKeyId>
-		</Credentials>
-	</GetSessionTokenResult>
-	<RequestID>12e6d6095ad5912a8b209e42e466afdb</RequestID>
+  <GetSessionTokenResult>
+    <Credentials>
+      <SessionToken>SESSIONTOKEN</SessionToken>
+      <SecretAccessKey>SECRETACCESSKEY</SecretAccessKey>
+      <Expiration>2018-03-04T12:21:50+00:00</Expiration>
+      <AccessKeyId>SESSIONACCESSKEY</AccessKeyId>
+    </Credentials>
+  </GetSessionTokenResult>
+  <RequestID>12e6d6095ad5912a8b209e42e466afdb</RequestID>
 </GetSessionTokenResponse>
 ```
 

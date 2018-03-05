@@ -161,16 +161,13 @@ $ec2Client = Ec2Client::factory(array(
 
 ```php--raw
 <?php
+/** 
+* This example illustrates how to generate a signed URL to make an API request
+* without depending on any external libraries.
+*/
+
 /**
 * Generates an API signature for a given request using the V2 signature method.
-*
-* @param type $method GET or POST
-* @param type $host The HTTP host that will be used for this request (API endpoint).
-* @param type $uri The URI/path (ie. the request URI without query string or host). \ 
-		If there is no path component to the URI it needs to be set to `/`.
-* @param type $qs The query string (request key/values)
-* @param type $signature_method HMAC_SHA1 or HMAC_SHA256 - HMAC_SHA256 preferred.
-* @return type
 */
 function signV2($method, $host, $uri, $qs, $signature_method, $secret_key) {
   $canonicalRequest = "$method\n$host\n$uri\n$qs";
@@ -183,7 +180,46 @@ function signV2($method, $host, $uri, $qs, $signature_method, $secret_key) {
     $secret_key,
     true));
 }
+/**
+ * Constructs an API request URL
+ */
+function apiRequestURL($endpoint, $access_key, $secret_key, $Action, $Parameters) {
+  $timestamp = new DateTime();
+  $api_endpoint = parse_url($endpoint);
+
+  if(!isset($api_endpoint['host']))
+    throw new Exception('Invalid endpoint URL provided');
+  if(!isset($api_endpoint['scheme']))
+    $api_endpoint['scheme'] = 'http';
+  if(!isset($api_endpoint['path']))
+    $api_endpoint['path'] = '/';
+
+  $qs = 'AWSKeyId='.$access_key
+    .'&Action='.$Action
+    .'&SignatureMethod=HmacSHA256'
+    .'&SignatureVersion=2'
+    .'&Timestamp='.urlencode($timestamp->format("c"))
+    .$Parameters;
+
+  return $api_endpoint['scheme'].'://'.$api_endpoint['host'].'?'.$qs
+    .'&Signature='.urlencode(
+      signV2('GET',
+          $api_endpoint['host'],
+          $api_endpoint['path'],
+          $qs,
+          'HmacSHA256',
+          $secret_key));
+}
+
+$api_url = 'https://api.thegcloud.com';
+$access_key = 'APIKEY';
+$secret_key = 'APIHASH';
+
+$url = apiRequestUrl($api_url, $access_key, $secret_key, 'APIACTION', '&Param1=Val&Param2=Val');
+
+// $url can now be fetched using GET HTTP Request
 ```
+
 
 ```ruby
 require 'aws-sdk'
