@@ -256,6 +256,24 @@
               </ul>
           </li>
           <li>
+            <a href="#cloud-machines" class="toc-h1 toc-link" data-title="cloud-machines">Cloud Machines</a>
+          </li>
+          <li>
+            <a href="#images" class="toc-h1 toc-link" data-title="images">Images</a>
+          </li>
+          <li>
+            <a href="#network" class="toc-h1 toc-link" data-title="network">Network</a>
+          </li>
+          <li>
+            <a href="#regions" class="toc-h1 toc-link" data-title="regions">Regions</a>
+          </li>
+          <li>
+            <a href="#ssh-keys" class="toc-h1 toc-link" data-title="ssh-keys">SSH Keys</a>
+          </li>
+          <li>
+            <a href="#tags" class="toc-h1 toc-link" data-title="tags">Tags</a>
+          </li>
+          <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="errors">Errors</a>
           </li>
       </div>
@@ -612,7 +630,21 @@ You use your <code>APIHASH</code> to generate the signature, but this should nev
 <td>The number of seconds that the token should be valid for, minimum 900 and maximum 129600.</td>
 </tr>
 </tbody></table>
-<h1 id='errors'>Errors</h1>
+<h1 id='cloud-machines'>Cloud Machines</h1><h1 id='images'>Images</h1><h1 id='network'>Network</h1><h1 id='regions'>Regions</h1><h1 id='ssh-keys'>SSH Keys</h1><h1 id='tags'>Tags</h1><h1 id='errors'>Errors</h1>
+<blockquote>
+<p>Sample XML error response from the API:</p>
+</blockquote>
+<pre class="highlight xml tab-xml"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;Response&gt;</span>
+    <span class="nt">&lt;Errors&gt;</span>
+        <span class="nt">&lt;Error&gt;</span>
+            <span class="nt">&lt;Code&gt;</span>MalformedQueryString<span class="nt">&lt;/Code&gt;</span>
+            <span class="nt">&lt;Message&gt;</span>You have provided a malformed query string<span class="nt">&lt;/Message&gt;</span>
+        <span class="nt">&lt;/Error&gt;</span>
+    <span class="nt">&lt;/Errors&gt;</span>
+    <span class="nt">&lt;RequestID&gt;</span>35d1289884eb27ee28057a28d69b72ed<span class="nt">&lt;/RequestID&gt;</span>
+<span class="nt">&lt;/Response&gt;</span>
+</code></pre>
 <p>The HTTP error code returned from the API response will be one of:</p>
 
 <ul>
