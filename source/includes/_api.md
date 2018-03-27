@@ -1,3 +1,4 @@
+
 # Cloud Machines
 
 Use this section of the API to create, run, start, stop, reboot and change any available settings for your Cloud Machines (VMs).
@@ -15,6 +16,18 @@ ec2 = boto.connect_ec2_endpoint(
 i = ec2.get_instance_attribute('1111', 'instanceType')
 ```
 
+```python--boto3
+import boto3
+
+ec2 = boto3.client('ec2', 
+	endpoint_url='https://api.thegcloud.com', 
+	aws_access_key_id='APIKEY', 
+	aws_secret_access_key='APIHASH', 
+	region_name='ord1');
+
+resp = ec2.describe_instance_attribute(InstanceId='1111', Attribute='instanceType')
+```
+
 ```ruby
 require 'aws-sdk'
 
@@ -26,6 +39,26 @@ ec2 = Aws::EC2::Client.new(
 )
   
 i = ec2.describe_instance_attribute({ instance_id: '1111', attribute: 'instanceType' })
+```
+
+```php
+<?php
+
+require('vendor/autoload.php');
+
+use \Aws\Ec2\Ec2Client;
+
+
+$ec2Client = Ec2Client::factory(array(
+  'endpoint' => 'https://api.thegcloud.com',
+  'region' => 'ord1',
+  'credentials' => array(
+    'key' => 'APIKEY',
+    'secret' => 'APIHASH'
+  )
+));
+
+$ret = $ec2Client->describeInstanceAttribute(array('InstanceId' => '1111', 'Attribute' => 'instanceType'));
 ```
 
 ```php--raw
@@ -95,6 +128,18 @@ ec2 = boto.connect_ec2_endpoint(
 i = ec2.get_all_instance_status(instance_ids=['1111'])
 ```
 
+```python--boto3
+import boto3
+
+ec2 = boto3.client('ec2', 
+	endpoint_url='https://api.thegcloud.com', 
+	aws_access_key_id='APIKEY', 
+	aws_secret_access_key='APIHASH', 
+	region_name='ord1');
+
+resp = ec2.describe_instance_status(InstanceIds=['1111'])
+```
+
 ```ruby
 require 'aws-sdk'
 
@@ -106,6 +151,27 @@ ec2 = Aws::EC2::Client.new(
 )
   
 i = ec2.describe_instance_status({ instance_ids: ['1111'] })
+```
+
+```php
+<?php
+
+require('vendor/autoload.php');
+
+use \Aws\Ec2\Ec2Client;
+
+
+$ec2Client = Ec2Client::factory(array(
+  'endpoint' => 'https://api.thegcloud.com',
+  'region' => 'ord1',
+  'credentials' => array(
+    'key' => 'APIKEY',
+    'secret' => 'APIHASH'
+  )
+));
+
+$ret = $ec2Client->describeInstanceStatus(array(
+		'InstanceIds' => array('2632')));
 ```
 
 ```php--raw
@@ -205,7 +271,15 @@ ec2 = boto.connect_ec2_endpoint(
 i = ec2.get_all_instance_types()
 ```
 
+```python--boto3
+# Not supported by this SDK
+```
+
 ```ruby
+# Not supported by this SDK
+```
+
+```php
 # Not supported by this SDK
 ```
 
@@ -364,6 +438,24 @@ all = ec2.get_all_instances()
 i = ec2.get_only_instances(['1111', '1112'])
 ```
 
+```python--boto3
+import boto3
+
+ec2 = boto3.client('ec2', 
+	endpoint_url='https://api.thegcloud.com', 
+	aws_access_key_id='APIKEY', 
+	aws_secret_access_key='APIHASH', 
+	region_name='ord1');
+
+# Get all instances
+resp = ec2.describe_instances()
+
+# Describe single instance
+resp = ec2.describe_instances(InstanceIds=['2632'])
+
+
+```
+
 ```ruby
 require 'aws-sdk'
 
@@ -374,7 +466,36 @@ ec2 = Aws::EC2::Client.new(
   secret_access_key: 'APIHASH'
 )
   
+# Get all instances 
+i = ec2.describe_instances()
+
+# Describe a single instance
 i = ec2.describe_instances({ instance_ids: ['1111'] })
+```
+
+```php
+<?php
+
+require('vendor/autoload.php');
+
+use \Aws\Ec2\Ec2Client;
+
+
+$ec2Client = Ec2Client::factory(array(
+  'endpoint' => 'https://api.thegcloud.com',
+  'region' => 'ord1',
+  'credentials' => array(
+    'key' => 'APIKEY',
+    'secret' => 'APIHASH'
+  )
+));
+
+// Describe all instances 
+$ret = $ec2Client->describeInstances();
+
+// Describe one instance
+$ret = $ec2Client->describeInstances(array(
+		'InstanceIds' => array('1111')));
 ```
 
 ```php--raw
@@ -462,8 +583,8 @@ Describe the full properties for one or more instances.
 </tr>
 <tr>
 <td>Filter</td>
-<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Filter_5ab3f8c30e0b0').toggle();return false;">Members</a>)
-<table id='Filter_5ab3f8c30e0b0' style='display:none'>
+<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Filter_5aba7bd3e3237').toggle();return false;">Members</a>)
+<table id='Filter_5aba7bd3e3237' style='display:none'>
 <tr><th>Name</th><th>Type</th><th>Required?</th><th>Default</th><th>Description</th></tr>
 <tr>
 <td>Name</td>
@@ -506,6 +627,18 @@ ec2 = boto.connect_ec2_endpoint(
 all = ec2.get_all_reserved_instances()
 ```
 
+```python--boto3
+import boto3
+
+ec2 = boto3.client('ec2', 
+	endpoint_url='https://api.thegcloud.com', 
+	aws_access_key_id='APIKEY', 
+	aws_secret_access_key='APIHASH', 
+	region_name='ord1');
+
+resp = ec2.describe_reserved_instances()
+```
+
 ```ruby
 require 'aws-sdk'
 
@@ -517,6 +650,26 @@ ec2 = Aws::EC2::Client.new(
 )
  
 i = ec2.describe_reserved_instances({})
+```
+
+```php
+<?php
+
+require('vendor/autoload.php');
+
+use \Aws\Ec2\Ec2Client;
+
+
+$ec2Client = Ec2Client::factory(array(
+  'endpoint' => 'https://api.thegcloud.com',
+  'region' => 'ord1',
+  'credentials' => array(
+    'key' => 'APIKEY',
+    'secret' => 'APIHASH'
+  )
+));
+
+$ret = $ec2Client->describeReservedInstances();
 ```
 
 ```php--raw
@@ -794,8 +947,8 @@ Describe reservation details for one or more instances.
 </tr>
 <tr>
 <td>Filter</td>
-<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Filter_5ab3f8c30e14b').toggle();return false;">Members</a>)
-<table id='Filter_5ab3f8c30e14b' style='display:none'>
+<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Filter_5aba7bd3e32e6').toggle();return false;">Members</a>)
+<table id='Filter_5aba7bd3e32e6' style='display:none'>
 <tr><th>Name</th><th>Type</th><th>Required?</th><th>Default</th><th>Description</th></tr>
 <tr>
 <td>Name</td>
@@ -831,7 +984,15 @@ Describe reservation details for one or more instances.
 # This is an API call not available in boto2.
 ```
 
+```python--boto3
+# Not supported by this SDK
+```
+
 ```ruby
+# Not supported by this SDK
+```
+
+```php
 # Not supported by this SDK
 ```
 
@@ -989,6 +1150,18 @@ ec2 = boto.connect_ec2_endpoint(
 password_data = ec2.get_password_data('1111')
 ```
 
+```python--boto3
+import boto3
+
+ec2 = boto3.client('ec2', 
+	endpoint_url='https://api.thegcloud.com', 
+	aws_access_key_id='APIKEY', 
+	aws_secret_access_key='APIHASH', 
+	region_name='ord1');
+
+resp = ec2.get_password_data(InstanceId='1111')
+```
+
 ```ruby
 require 'aws-sdk'
 
@@ -1000,6 +1173,27 @@ ec2 = Aws::EC2::Client.new(
 )
  
 i = ec2.get_password_data({instance_id: "1111"})
+```
+
+```php
+<?php
+
+require('vendor/autoload.php');
+
+use \Aws\Ec2\Ec2Client;
+
+
+$ec2Client = Ec2Client::factory(array(
+  'endpoint' => 'https://api.thegcloud.com',
+  'region' => 'ord1',
+  'credentials' => array(
+    'key' => 'APIKEY',
+    'secret' => 'APIHASH'
+  )
+));
+
+$ret = $ec2Client->getPasswordData(array(
+		'InstanceId' => '1111'));
 ```
 
 ```php--raw
@@ -1064,6 +1258,31 @@ ret = ec2.modify_instance_attribute('1111', 'password', 'this-is-ignored')
 ret = ec2.modify_instance_attribute('1111', 'hostname', 'new-hostname')
 ```
 
+```python--boto3
+import boto3
+
+ec2 = boto3.client('ec2', 
+	endpoint_url='https://api.thegcloud.com', 
+	aws_access_key_id='APIKEY', 
+	aws_secret_access_key='APIHASH', 
+	region_name='ord1');
+
+resp = ec2.modify_instance_attribute(
+	InstanceId='1111', 
+	Attribute='instanceType',
+	InstanceType='cpu.lg')
+
+resp = ec2.modify_instance_attribute(
+	InstanceId='1111', 
+	Attribute='password',
+	Value='ignored')
+
+resp = ec2.modify_instance_attribute(
+	InstanceId='1111', 
+	Attribute='hostname',
+	Value='new-hostname')
+```
+
 ```ruby
 require 'aws-sdk'
 
@@ -1088,6 +1307,39 @@ i = ec2.modify_instance_attribute({
     attribute: "hostname",
     instance_id: "1111",
     value: "new-hostname"})
+```
+
+```php
+<?php
+
+require('vendor/autoload.php');
+
+use \Aws\Ec2\Ec2Client;
+
+
+$ec2Client = Ec2Client::factory(array(
+  'endpoint' => 'https://api.thegcloud.com',
+  'region' => 'ord1',
+  'credentials' => array(
+    'key' => 'APIKEY',
+    'secret' => 'APIHASH'
+  )
+));
+
+$ret = $ec2Client->modifyInstanceAttribute(array(
+		'InstanceId' => '1111',
+		'Attribute' => 'instanceType',
+		'InstanceType' => array('Value' => 'cpu.lg')));
+
+$ret = $ec2Client->modifyInstanceAttribute(array(
+		'InstanceId' => '1111',
+		'Attribute' => 'password',
+		'Value' => 'ignored'));
+
+$ret = $ec2Client->modifyInstanceAttribute(array(
+		'InstanceId' => '1111',
+		'Attribute' => 'hostname',
+		'Value' => 'new-hostname'));
 ```
 
 ```php--raw
@@ -1182,6 +1434,18 @@ ec2 = boto.connect_ec2_endpoint(
 ret = ec2.reboot_instances(instance_ids=['1111'])
 ```
 
+```python--boto3
+import boto3
+
+ec2 = boto3.client('ec2', 
+	endpoint_url='https://api.thegcloud.com', 
+	aws_access_key_id='APIKEY', 
+	aws_secret_access_key='APIHASH', 
+	region_name='ord1');
+
+resp = ec2.reboot_instances(InstanceIds=['1111'])
+```
+
 ```ruby
 require 'aws-sdk'
 
@@ -1193,6 +1457,26 @@ ec2 = Aws::EC2::Client.new(
 )
   
 i = ec2.reboot_instances({ instance_ids: ["1111"] })
+```
+
+```php
+<?php
+
+require('vendor/autoload.php');
+
+use \Aws\Ec2\Ec2Client;
+
+
+$ec2Client = Ec2Client::factory(array(
+  'endpoint' => 'https://api.thegcloud.com',
+  'region' => 'ord1',
+  'credentials' => array(
+    'key' => 'APIKEY',
+    'secret' => 'APIHASH'
+  )
+));
+
+$ret = $ec2Client->rebootInstances(array('InstanceIds' => array('1111')));
 ```
 
 ```php--raw
@@ -1242,6 +1526,20 @@ ec2 = boto.connect_ec2_endpoint(
 ret = ec2.reset_instance_attribute('1111', 'operatingSystem')
 ```
 
+```python--boto3
+import boto3
+
+ec2 = boto3.client('ec2', 
+	endpoint_url='https://api.thegcloud.com', 
+	aws_access_key_id='APIKEY', 
+	aws_secret_access_key='APIHASH', 
+	region_name='ord1');
+
+resp = ec2.reset_instance_attribute(
+	InstanceId='1111', 
+	Attribute='operatingSystem')
+```
+
 ```ruby
 require 'aws-sdk'
 
@@ -1255,6 +1553,28 @@ ec2 = Aws::EC2::Client.new(
 i = ec2.reset_instance_attribute({
     attribute: "operatingSystem",
     instance_id: "1111"})
+```
+
+```php
+<?php
+
+require('vendor/autoload.php');
+
+use \Aws\Ec2\Ec2Client;
+
+
+$ec2Client = Ec2Client::factory(array(
+  'endpoint' => 'https://api.thegcloud.com',
+  'region' => 'ord1',
+  'credentials' => array(
+    'key' => 'APIKEY',
+    'secret' => 'APIHASH'
+  )
+));
+
+$ret = $ec2Client->resetInstanceAttribute(array(
+		'InstanceId' => '1111',
+		'Attribute' => 'operatingSystem'));
 ```
 
 ```php--raw
@@ -1311,6 +1631,22 @@ ec2 = boto.connect_ec2_endpoint(
 instance = ec2.run_instances('centos64_6.4', instance_type='bal.small')
 ```
 
+```python--boto3
+import boto3
+
+ec2 = boto3.client('ec2', 
+	endpoint_url='https://api.thegcloud.com', 
+	aws_access_key_id='APIKEY', 
+	aws_secret_access_key='APIHASH', 
+	region_name='ord1');
+
+resp = ec2.run_instances(
+	ImageId="centos64_6.4",
+	InstanceType="bal.small",
+	MinCount=1,
+	MaxCount=1)
+```
+
 ```ruby
 require 'aws-sdk'
 
@@ -1322,6 +1658,30 @@ ec2 = Aws::EC2::Client.new(
 )
   
 i = ec2.run_instances({ image_id: "centos64_6.4", instance_type: "bal.small" })
+```
+
+```php
+<?php
+
+require('vendor/autoload.php');
+
+use \Aws\Ec2\Ec2Client;
+
+
+$ec2Client = Ec2Client::factory(array(
+  'endpoint' => 'https://api.thegcloud.com',
+  'region' => 'ord1',
+  'credentials' => array(
+    'key' => 'APIKEY',
+    'secret' => 'APIHASH'
+  )
+));
+
+$ret = $ec2Client->runInstances(array(
+		'ImageId' => 'centos64_6.4',
+		'InstanceType' => 'bal.small',
+		'MinCount' => 1,
+		'MaxCount' => 1));
 ```
 
 ```php--raw
@@ -1402,8 +1762,8 @@ Create one or more new instances with the given specifications.
 </tr>
 <tr>
 <td>NetworkInterface</td>
-<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#NetworkInterface_5ab3f8c30e32e').toggle();return false;">Members</a>)
-<table id='NetworkInterface_5ab3f8c30e32e' style='display:none'>
+<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#NetworkInterface_5aba7bd3e351c').toggle();return false;">Members</a>)
+<table id='NetworkInterface_5aba7bd3e351c' style='display:none'>
 <tr><th>Name</th><th>Type</th><th>Required?</th><th>Default</th><th>Description</th></tr>
 <tr>
 <td>AssociatePublicIpAddress</td>
@@ -1455,8 +1815,8 @@ Create one or more new instances with the given specifications.
 </tr>
 <tr>
 <td>TagSpecification</td>
-<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#TagSpecification_5ab3f8c30e3a2').toggle();return false;">Members</a>)
-<table id='TagSpecification_5ab3f8c30e3a2' style='display:none'>
+<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#TagSpecification_5aba7bd3e3584').toggle();return false;">Members</a>)
+<table id='TagSpecification_5aba7bd3e3584' style='display:none'>
 <tr><th>Name</th><th>Type</th><th>Required?</th><th>Default</th><th>Description</th></tr>
 <tr>
 <td>ResourceType</td>
@@ -1467,8 +1827,8 @@ Create one or more new instances with the given specifications.
 </tr>
 <tr>
 <td>Tags</td>
-<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Tags_5ab3f8c30e41c').toggle();return false;">Members</a>)
-<table id='Tags_5ab3f8c30e41c' style='display:none'>
+<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Tags_5aba7bd3e35f4').toggle();return false;">Members</a>)
+<table id='Tags_5aba7bd3e35f4' style='display:none'>
 <tr><th>Name</th><th>Type</th><th>Required?</th><th>Default</th><th>Description</th></tr>
 <tr>
 <td>Key</td>
@@ -1517,6 +1877,18 @@ ec2 = boto.connect_ec2_endpoint(
 instance = ec2.start_instances(instance_ids=['1111'])
 ```
 
+```python--boto3
+import boto3
+
+ec2 = boto3.client('ec2', 
+	endpoint_url='https://api.thegcloud.com', 
+	aws_access_key_id='APIKEY', 
+	aws_secret_access_key='APIHASH', 
+	region_name='ord1');
+
+resp = ec2.start_instances(InstanceIds=['1111'])
+```
+
 ```ruby
 require 'aws-sdk'
 
@@ -1528,6 +1900,26 @@ ec2 = Aws::EC2::Client.new(
 )
   
 i = ec2.start_instances({ instance_ids: ["1111"] })
+```
+
+```php
+<?php
+
+require('vendor/autoload.php');
+
+use \Aws\Ec2\Ec2Client;
+
+
+$ec2Client = Ec2Client::factory(array(
+  'endpoint' => 'https://api.thegcloud.com',
+  'region' => 'ord1',
+  'credentials' => array(
+    'key' => 'APIKEY',
+    'secret' => 'APIHASH'
+  )
+));
+
+$ret = $ec2Client->startInstances(array('InstanceIds' => array('1111')));
 ```
 
 ```php--raw
@@ -1577,6 +1969,18 @@ ec2 = boto.connect_ec2_endpoint(
 instance = ec2.stop_instances(instance_ids=['1111'])
 ```
 
+```python--boto3
+import boto3
+
+ec2 = boto3.client('ec2', 
+	endpoint_url='https://api.thegcloud.com', 
+	aws_access_key_id='APIKEY', 
+	aws_secret_access_key='APIHASH', 
+	region_name='ord1');
+
+resp = ec2.stop_instances(InstanceIds=['1111'])
+```
+
 ```ruby
 require 'aws-sdk'
 
@@ -1588,6 +1992,26 @@ ec2 = Aws::EC2::Client.new(
 )
   
 i = ec2.stop_instances({ instance_ids: ["1111"] })
+```
+
+```php
+<?php
+
+require('vendor/autoload.php');
+
+use \Aws\Ec2\Ec2Client;
+
+
+$ec2Client = Ec2Client::factory(array(
+  'endpoint' => 'https://api.thegcloud.com',
+  'region' => 'ord1',
+  'credentials' => array(
+    'key' => 'APIKEY',
+    'secret' => 'APIHASH'
+  )
+));
+
+$ret = $ec2Client->stopInstances(array('InstanceIds' => array('1111')));
 ```
 
 ```php--raw
@@ -1644,6 +2068,18 @@ ec2 = boto.connect_ec2_endpoint(
 instance = ec2.terminate_instnaces(instance_ids=['1111'])
 ```
 
+```python--boto3
+import boto3
+
+ec2 = boto3.client('ec2', 
+	endpoint_url='https://api.thegcloud.com', 
+	aws_access_key_id='APIKEY', 
+	aws_secret_access_key='APIHASH', 
+	region_name='ord1');
+
+resp = ec2.terminate_instances(InstanceIds=['1111'])
+```
+
 ```ruby
 require 'aws-sdk'
 
@@ -1655,6 +2091,26 @@ ec2 = Aws::EC2::Client.new(
 )
   
 i = ec2.terminate_instances({ instance_ids: ["1111"] })
+```
+
+```php
+<?php
+
+require('vendor/autoload.php');
+
+use \Aws\Ec2\Ec2Client;
+
+
+$ec2Client = Ec2Client::factory(array(
+  'endpoint' => 'https://api.thegcloud.com',
+  'region' => 'ord1',
+  'credentials' => array(
+    'key' => 'APIKEY',
+    'secret' => 'APIHASH'
+  )
+));
+
+$ret = $ec2Client->terminateInstances(array('InstanceIds' => array('1111')));
 ```
 
 ```php--raw
@@ -1708,6 +2164,18 @@ ec2 = boto.connect_ec2_endpoint(
 ip = ec2.allocate_address(domain='ord1')
 ```
 
+```python--boto3
+import boto3
+
+ec2 = boto3.client('ec2', 
+	endpoint_url='https://api.thegcloud.com', 
+	aws_access_key_id='APIKEY', 
+	aws_secret_access_key='APIHASH', 
+	region_name='ord1');
+
+resp = ec2.allocate_address(Domain='ord1')
+```
+
 ```ruby
 require 'aws-sdk'
 
@@ -1719,6 +2187,26 @@ ec2 = Aws::EC2::Client.new(
 )
   
 i = ec2.allocate_address({ domain: "ord1" })
+```
+
+```php
+<?php
+
+require('vendor/autoload.php');
+
+use \Aws\Ec2\Ec2Client;
+
+
+$ec2Client = Ec2Client::factory(array(
+  'endpoint' => 'https://api.thegcloud.com',
+  'region' => 'ord1',
+  'credentials' => array(
+    'key' => 'APIKEY',
+    'secret' => 'APIHASH'
+  )
+));
+
+$ret = $ec2Client->allocateAddress(array('Domain' => 'ord1'));
 ```
 
 ```php--raw
@@ -1772,7 +2260,15 @@ Allocates an elastic IP address to your account. The elastic IP will be availabl
 # Not supported by the boto2 SDK
 ```
 
+```python--boto3
+# Not supported by this SDK
+```
+
 ```ruby
+# Not supported by this SDK
+```
+
+```php
 # Not supported by this SDK
 ```
 
@@ -1811,6 +2307,18 @@ ip = ec2.allocate_address(domain='ord1')
 ret = ec2.associate_address(instance_id='1111', public_ip=ip.public_ip)
 ```
 
+```python--boto3
+import boto3
+
+ec2 = boto3.client('ec2', 
+	endpoint_url='https://api.thegcloud.com', 
+	aws_access_key_id='APIKEY', 
+	aws_secret_access_key='APIHASH', 
+	region_name='ord1');
+
+resp = ec2.associate_address(InstanceId='1111', PublicIp='69.23.22.11')
+```
+
 ```ruby
 require 'aws-sdk'
 
@@ -1822,6 +2330,28 @@ ec2 = Aws::EC2::Client.new(
 )
   
 i = ec2.associate_address({ instance_id: "1111", public_ip: "69.33.235.235" })
+```
+
+```php
+<?php
+
+require('vendor/autoload.php');
+
+use \Aws\Ec2\Ec2Client;
+
+
+$ec2Client = Ec2Client::factory(array(
+  'endpoint' => 'https://api.thegcloud.com',
+  'region' => 'ord1',
+  'credentials' => array(
+    'key' => 'APIKEY',
+    'secret' => 'APIHASH'
+  )
+));
+
+$ret = $ec2Client->associateAddress(array(
+	'InstanceId' => '1111', 
+	'PublicIp' => '69.39.39.39'));
 ```
 
 ```php--raw
@@ -1890,6 +2420,18 @@ all = ec2.get_all_addresses()
 address = ec2.get_all_addresses(['32.44.22.11'])
 ```
 
+```python--boto3
+import boto3
+
+ec2 = boto3.client('ec2', 
+	endpoint_url='https://api.thegcloud.com', 
+	aws_access_key_id='APIKEY', 
+	aws_secret_access_key='APIHASH', 
+	region_name='ord1');
+
+resp = ec2.describe_addresses(PublicIps=['69.23.22.11'])
+```
+
 ```ruby
 require 'aws-sdk'
 
@@ -1901,6 +2443,27 @@ ec2 = Aws::EC2::Client.new(
 )
   
 i = ec2.describe_addresses({ public_ips: ["69.39.235.241"]})
+```
+
+```php
+<?php
+
+require('vendor/autoload.php');
+
+use \Aws\Ec2\Ec2Client;
+
+
+$ec2Client = Ec2Client::factory(array(
+  'endpoint' => 'https://api.thegcloud.com',
+  'region' => 'ord1',
+  'credentials' => array(
+    'key' => 'APIKEY',
+    'secret' => 'APIHASH'
+  )
+));
+
+$ret = $ec2Client->describeAddresses(array(
+	'PublicIp' => '69.39.39.39'));
 ```
 
 ```php--raw
@@ -1959,6 +2522,18 @@ ec2 = boto.connect_ec2_endpoint(
 ret = ec2.disassociate_address(public_ip='32.44.22.11')
 ```
 
+```python--boto3
+import boto3
+
+ec2 = boto3.client('ec2', 
+	endpoint_url='https://api.thegcloud.com', 
+	aws_access_key_id='APIKEY', 
+	aws_secret_access_key='APIHASH', 
+	region_name='ord1');
+
+resp = ec2.disassociate_address(PublicIp='69.23.22.11')
+```
+
 ```ruby
 require 'aws-sdk'
 
@@ -1970,6 +2545,28 @@ ec2 = Aws::EC2::Client.new(
 )
   
 i = ec2.disassociate_address({ public_ip: "69.33.235.235" })
+```
+
+```php
+<?php
+
+require('vendor/autoload.php');
+
+use \Aws\Ec2\Ec2Client;
+
+
+$ec2Client = Ec2Client::factory(array(
+  'endpoint' => 'https://api.thegcloud.com',
+  'region' => 'ord1',
+  'credentials' => array(
+    'key' => 'APIKEY',
+    'secret' => 'APIHASH'
+  )
+));
+
+$ret = $ec2Client->associateAddress(array(
+	'InstanceId' => '1111', 
+	'PublicIp' => '69.39.39.39'));
 ```
 
 ```php--raw
@@ -2029,6 +2626,18 @@ ec2 = boto.connect_ec2_endpoint(
 ret = ec2.release_address(public_ip='32.44.22.11')
 ```
 
+```python--boto3
+import boto3
+
+ec2 = boto3.client('ec2', 
+	endpoint_url='https://api.thegcloud.com', 
+	aws_access_key_id='APIKEY', 
+	aws_secret_access_key='APIHASH', 
+	region_name='ord1');
+
+resp = ec2.release_address(PublicIp='69.23.22.11')
+```
+
 ```ruby
 require 'aws-sdk'
 
@@ -2040,6 +2649,27 @@ ec2 = Aws::EC2::Client.new(
 )
   
 i = ec2.release_address({ public_ips: "69.39.235.241"})
+```
+
+```php
+<?php
+
+require('vendor/autoload.php');
+
+use \Aws\Ec2\Ec2Client;
+
+
+$ec2Client = Ec2Client::factory(array(
+  'endpoint' => 'https://api.thegcloud.com',
+  'region' => 'ord1',
+  'credentials' => array(
+    'key' => 'APIKEY',
+    'secret' => 'APIHASH'
+  )
+));
+
+$ret = $ec2Client->releaseAddress(array(
+	'PublicIp' => '69.39.39.39'));
 ```
 
 ```php--raw
@@ -2097,6 +2727,18 @@ Releases an elastic IP address, removing it from your account.
 # Not supported by the boto2 SDK
 ```
 
+```python--boto3
+# Not supported by this SDK
+```
+
+```ruby
+# Not supported by this SDK
+```
+
+```php
+# Not supported by this SDK
+```
+
 Removes and releases a public/additional IP address. This is an extension of the AWS API so likely not supported by AWS SDKs or tools.
 
 ### Parameters
@@ -2135,6 +2777,18 @@ ret = ec2.get_image_attribute(image_id='ubuntu64_14.04.1',
 	attribute='description')
 ```
 
+```python--boto3
+import boto3
+
+ec2 = boto3.client('ec2', 
+	endpoint_url='https://api.thegcloud.com', 
+	aws_access_key_id='APIKEY', 
+	aws_secret_access_key='APIHASH', 
+	region_name='ord1');
+
+resp = ec2.describe_image_attribute(Attribute='description', ImageId='ubuntu64_14.04.1')
+```
+
 ```ruby
 require 'aws-sdk'
 
@@ -2146,6 +2800,31 @@ ec2 = Aws::EC2::Client.new(
 )
   
 i = ec2.describe_image_attribute({attribute: "description", image_id: "ubuntu64_14.04.1"})
+```
+
+```php
+<?php
+
+require('vendor/autoload.php');
+
+use \Aws\Ec2\Ec2Client;
+
+
+$ec2Client = Ec2Client::factory(array(
+  'endpoint' => 'https://api.thegcloud.com',
+  'region' => 'ord1',
+  'credentials' => array(
+    'key' => 'APIKEY',
+    'secret' => 'APIHASH'
+  )
+));
+
+// Describe all iamges
+$ret = $ec2Client->describeImages();
+
+// Describe single image
+$ret = $ec2Client->describeImages(array(
+		'ImageIds' => array('ubuntu64_14.04.1')));
 ```
 
 ```php--raw
@@ -2219,6 +2898,22 @@ image = ec2.get_image('ubuntu64_14.04.1')
 
 ```
 
+```python--boto3
+import boto3
+
+ec2 = boto3.client('ec2', 
+	endpoint_url='https://api.thegcloud.com', 
+	aws_access_key_id='APIKEY', 
+	aws_secret_access_key='APIHASH', 
+	region_name='ord1');
+
+# Describe all images
+resp = ec2.describe_images()
+
+# Describe single image
+resp = ec2.describe_images(ImageIds=['ubuntu64_14.04.1'])
+```
+
 ```ruby
 require 'aws-sdk'
 
@@ -2234,6 +2929,31 @@ i = ec2.describe_images({})
 
 # Describe single image
 i = ec2.describe_images({ image_ids: ["ubuntu64_14.04.1"]})
+```
+
+```php
+<?php
+
+require('vendor/autoload.php');
+
+use \Aws\Ec2\Ec2Client;
+
+
+$ec2Client = Ec2Client::factory(array(
+  'endpoint' => 'https://api.thegcloud.com',
+  'region' => 'ord1',
+  'credentials' => array(
+    'key' => 'APIKEY',
+    'secret' => 'APIHASH'
+  )
+));
+
+// Describe all images
+$ret = $ec2Client->describeImages();
+
+// Describe one image 
+$ret = $ec2Client->describeImages(array(
+		'InstanceIds' => array('ubuntu64_14.04.1')));
 ```
 
 ```php--raw
@@ -2312,6 +3032,18 @@ zone = ec2.get_all_zones(zones=['ord1'])
 
 ```
 
+```python--boto3
+import boto3
+
+ec2 = boto3.client('ec2', 
+	endpoint_url='https://api.thegcloud.com', 
+	aws_access_key_id='APIKEY', 
+	aws_secret_access_key='APIHASH', 
+	region_name='ord1');
+
+resp = ec2.describe_availability_zones()
+```
+
 ```ruby
 require 'aws-sdk'
 
@@ -2323,6 +3055,26 @@ ec2 = Aws::EC2::Client.new(
 )
   
 i = ec2.describe_availability_zones({})
+```
+
+```php
+<?php
+
+require('vendor/autoload.php');
+
+use \Aws\Ec2\Ec2Client;
+
+
+$ec2Client = Ec2Client::factory(array(
+  'endpoint' => 'https://api.thegcloud.com',
+  'region' => 'ord1',
+  'credentials' => array(
+    'key' => 'APIKEY',
+    'secret' => 'APIHASH'
+  )
+));
+
+$ret = $ec2Client->describeAvailabilityZones();
 ```
 
 ```php--raw
@@ -2406,8 +3158,8 @@ Describes one, several or all of the data centers returning information about it
 <table><tr><th>Name</th><th>Type</th><th>Description</th></tr>
 <tr>
 <td>availabilityZoneInfoSet</td>
-<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#availabilityZoneInfoSet_5ab3f8c30e7e7').toggle();return false;">Members</a>)
-<table id='availabilityZoneInfoSet_5ab3f8c30e7e7' style='display:none'>
+<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#availabilityZoneInfoSet_5aba7bd3e3a98').toggle();return false;">Members</a>)
+<table id='availabilityZoneInfoSet_5aba7bd3e3a98' style='display:none'>
 <tr><th>Name</th><th>Type</th><th>Description</th></tr>
 <tr>
 <td>regionName</td>
@@ -2449,6 +3201,18 @@ all = ec2.get_all_regions()
 zone = ec2.get_all_regions(zones=['ord1'])
 ```
 
+```python--boto3
+import boto3
+
+ec2 = boto3.client('ec2', 
+	endpoint_url='https://api.thegcloud.com', 
+	aws_access_key_id='APIKEY', 
+	aws_secret_access_key='APIHASH', 
+	region_name='ord1');
+
+resp = ec2.describe_regions()
+```
+
 ```ruby
 require 'aws-sdk'
 
@@ -2460,6 +3224,26 @@ ec2 = Aws::EC2::Client.new(
 )
   
 i = ec2.describe_regions({})
+```
+
+```php
+<?php
+
+require('vendor/autoload.php');
+
+use \Aws\Ec2\Ec2Client;
+
+
+$ec2Client = Ec2Client::factory(array(
+  'endpoint' => 'https://api.thegcloud.com',
+  'region' => 'ord1',
+  'credentials' => array(
+    'key' => 'APIKEY',
+    'secret' => 'APIHASH'
+  )
+));
+
+$ret = $ec2Client->describeRegions();
 ```
 
 ```php--raw
@@ -2515,8 +3299,8 @@ Describes the API end points available in different data centers/regions.
 <table><tr><th>Name</th><th>Type</th><th>Description</th></tr>
 <tr>
 <td>regionInfoSet</td>
-<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#regionInfoSet_5ab3f8c30e8b2').toggle();return false;">Members</a>)
-<table id='regionInfoSet_5ab3f8c30e8b2' style='display:none'>
+<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#regionInfoSet_5aba7bd3e3b66').toggle();return false;">Members</a>)
+<table id='regionInfoSet_5aba7bd3e3b66' style='display:none'>
 <tr><th>Name</th><th>Type</th><th>Description</th></tr>
 <tr>
 <td>regionEndpoint</td>
@@ -2550,6 +3334,18 @@ ec2 = boto.connect_ec2_endpoint(
 keypair = ec2.create_key_pair('ssh-key-name')
 ```
 
+```python--boto3
+import boto3
+
+ec2 = boto3.client('ec2', 
+	endpoint_url='https://api.thegcloud.com', 
+	aws_access_key_id='APIKEY', 
+	aws_secret_access_key='APIHASH', 
+	region_name='ord1');
+
+resp = ec2.create_key_pair(KeyName='test_key')
+```
+
 ```ruby
 require 'aws-sdk'
 
@@ -2561,6 +3357,26 @@ ec2 = Aws::EC2::Client.new(
 )
   
 i = ec2.create_key_pair({ key_name: "my-key-name" })
+```
+
+```php
+<?php
+
+require('vendor/autoload.php');
+
+use \Aws\Ec2\Ec2Client;
+
+
+$ec2Client = Ec2Client::factory(array(
+  'endpoint' => 'https://api.thegcloud.com',
+  'region' => 'ord1',
+  'credentials' => array(
+    'key' => 'APIKEY',
+    'secret' => 'APIHASH'
+  )
+));
+
+$ret = $ec2Client->createKeyPair(array('KeyName' => 'test-key-pair'));
 ```
 
 ```php--raw
@@ -2651,6 +3467,18 @@ ec2 = boto.connect_ec2_endpoint(
 keypair = ec2.delete_key_pair('ssh-key-name')
 ```
 
+```python--boto3
+import boto3
+
+ec2 = boto3.client('ec2', 
+	endpoint_url='https://api.thegcloud.com', 
+	aws_access_key_id='APIKEY', 
+	aws_secret_access_key='APIHASH', 
+	region_name='ord1');
+
+resp = ec2.delete_key_pair(KeyName='test_key')
+```
+
 ```ruby
 require 'aws-sdk'
 
@@ -2662,6 +3490,26 @@ ec2 = Aws::EC2::Client.new(
 )
   
 i = ec2.delete_key_pair({ key_name: "my-key-name" })
+```
+
+```php
+<?php
+
+require('vendor/autoload.php');
+
+use \Aws\Ec2\Ec2Client;
+
+
+$ec2Client = Ec2Client::factory(array(
+  'endpoint' => 'https://api.thegcloud.com',
+  'region' => 'ord1',
+  'credentials' => array(
+    'key' => 'APIKEY',
+    'secret' => 'APIHASH'
+  )
+));
+
+$ret = $ec2Client->deleteKeyPair(array('KeyName' => ('test-key-pair')));
 ```
 
 ```php--raw
@@ -2713,6 +3561,18 @@ all = ec2.get_all_key_pairs()
 keypair = ec2.get_all_key_pairs(['ssh-key-name'])
 ```
 
+```python--boto3
+import boto3
+
+ec2 = boto3.client('ec2', 
+	endpoint_url='https://api.thegcloud.com', 
+	aws_access_key_id='APIKEY', 
+	aws_secret_access_key='APIHASH', 
+	region_name='ord1');
+
+resp = ec2.describe_key_pairs(KeyNames=['test_key'])
+```
+
 ```ruby
 require 'aws-sdk'
 
@@ -2724,6 +3584,26 @@ ec2 = Aws::EC2::Client.new(
 )
   
 i = ec2.describe_key_pairs({ key_names: [ "my-key-namea "] })
+```
+
+```php
+<?php
+
+require('vendor/autoload.php');
+
+use \Aws\Ec2\Ec2Client;
+
+
+$ec2Client = Ec2Client::factory(array(
+  'endpoint' => 'https://api.thegcloud.com',
+  'region' => 'ord1',
+  'credentials' => array(
+    'key' => 'APIKEY',
+    'secret' => 'APIHASH'
+  )
+));
+
+$ret = $ec2Client->describeKeyPairs(array('KeyNames' => array('test-key-pair')));
 ```
 
 ```php--raw
@@ -2790,8 +3670,25 @@ keypair = ec2.import_key_pair('ssh-key-name',
 		'ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA27Qd8PiFw+FYhPOJgDp9lo9bUP6NJEGtjyAK+o+oyd8HKEqORSVzM9vG81mHkapkr3VCBkZKgF6GF8Lfc2cUlC9g4XYJErjBeWmuWYo8Fq1ch1QTQUDkJfRaI1lNSuzS/8KvKVi4yO4ydOoCM7rG5yFiwtrPcxy8CeuwkA6DpyHtoIspOpzD5C6kcTyhf3PdPk/qMTB1h9oa0gpqmh8ns1yYI3Lxud8AYf63Awm9/V1WxwCMxHailKbE0glgw95PTJGUL6FVyc+awXg3xn48TjNT9dR82Dr4OPUgZq7fZHArcSyavoWzvjeQqcCN5qkcCAUZ1ZpSgWj/FOZIENlMDw== test@thegcloud.com')
 ```
 
+```python--boto3
+import boto3
+
+ec2 = boto3.client('ec2', 
+	endpoint_url='https://api.thegcloud.com', 
+	aws_access_key_id='APIKEY', 
+	aws_secret_access_key='APIHASH', 
+	region_name='ord1');
+
+resp = ec2.import_key_pair(
+	KeyName='test_key',  
+	PublicKeyMaterial=base64.b64encode("ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA27Qd8PiFw+FYhPOJgDp9lo9bUP6NJEGtjyAK+o+oyd8HKEqORSVzM9vG81mHkapkr3VCBkZKgF6GF8Lfc2cUlC9g4XYJErjBeWmuWYo8Fq1ch1QTQUDkJfRaI1lNSuzS/8KvKVi4yO4ydOoCM7rG5yFiwtrPcxy8CeuwkA6DpyHtoIspOpzD5C6kcTyhf3PdPk/qMTB1h9oa0gpqmh8ns1yYI3Lxud8AYf63Awm9/V1WxwCMxHailKbE0glgw95PTJGUL6FVyc+awXg3xn48TjNT9dR82Dr4OPUgZq7fZHArcSyavoWzvjeQqcCN5qkcCAUZ1ZpSgWj/FOZIENlMDw== test@thegcloud.com'"))
+
+
+```
+
 ```ruby
 require 'aws-sdk'
+require 'base64'
 
 ec2 = Aws::EC2::Client.new(
   endpoint: 'https://api.thegcloud.com',
@@ -2802,7 +3699,31 @@ ec2 = Aws::EC2::Client.new(
  
 i = i = ec2.import_key_pair({
     key_name: "test-key",
-    public_key_material: "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA27Qd8PiFw+FYhPOJgDp9lo9bUP6NJEGtjyAK+o+oyd8HKEqORSVzM9vG81mHkapkr3VCBkZKgF6GF8Lfc2cUlC9g4XYJErjBeWmuWYo8Fq1ch1QTQUDkJfRaI1lNSuzS/8KvKVi4yO4ydOoCM7rG5yFiwtrPcxy8CeuwkA6DpyHtoIspOpzD5C6kcTyhf3PdPk/qMTB1h9oa0gpqmh8ns1yYI3Lxud8AYf63Awm9/V1WxwCMxHailKbE0glgw95PTJGUL6FVyc+awXg3xn48TjNT9dR82Dr4OPUgZq7fZHArcSyavoWzvjeQqcCN5qkcCAUZ1ZpSgWj/FOZIENlMDw== test@thegcloud.com'"})
+    public_key_material: Base64.encode64("ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA27Qd8PiFw+FYhPOJgDp9lo9bUP6NJEGtjyAK+o+oyd8HKEqORSVzM9vG81mHkapkr3VCBkZKgF6GF8Lfc2cUlC9g4XYJErjBeWmuWYo8Fq1ch1QTQUDkJfRaI1lNSuzS/8KvKVi4yO4ydOoCM7rG5yFiwtrPcxy8CeuwkA6DpyHtoIspOpzD5C6kcTyhf3PdPk/qMTB1h9oa0gpqmh8ns1yYI3Lxud8AYf63Awm9/V1WxwCMxHailKbE0glgw95PTJGUL6FVyc+awXg3xn48TjNT9dR82Dr4OPUgZq7fZHArcSyavoWzvjeQqcCN5qkcCAUZ1ZpSgWj/FOZIENlMDw== test@thegcloud.com'")})
+```
+
+```php
+<?php
+
+require('vendor/autoload.php');
+
+use \Aws\Ec2\Ec2Client;
+
+
+$ec2Client = Ec2Client::factory(array(
+  'endpoint' => 'https://api.thegcloud.com',
+  'region' => 'ord1',
+  'credentials' => array(
+    'key' => 'APIKEY',
+    'secret' => 'APIHASH'
+  )
+));
+
+$
+$ret = $ec2Client->importKeyPair(
+	array(
+		'KeyName' => 'test-key-pair',
+		'PublicKeyMaterial' => base64_encode('ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA27Qd8PiFw+FYhPOJgDp9lo9bUP6NJEGtjyAK+o+oyd8HKEqORSVzM9vG81mHkapkr3VCBkZKgF6GF8Lfc2cUlC9g4XYJErjBeWmuWYo8Fq1ch1QTQUDkJfRaI1lNSuzS/8KvKVi4yO4ydOoCM7rG5yFiwtrPcxy8CeuwkA6DpyHtoIspOpzD5C6kcTyhf3PdPk/qMTB1h9oa0gpqmh8ns1yYI3Lxud8AYf63Awm9/V1WxwCMxHailKbE0glgw95PTJGUL6FVyc+awXg3xn48TjNT9dR82Dr4OPUgZq7fZHArcSyavoWzvjeQqcCN5qkcCAUZ1ZpSgWj/FOZIENlMDw== test@thegcloud.com')));
 ```
 
 ```php--raw
@@ -2874,6 +3795,18 @@ ec2 = boto.connect_ec2_endpoint(
 ret = ec2.create_tags(['1111'], { 'MyTag': 'value-is-ignored' })
 ```
 
+```python--boto3
+import boto3
+
+ec2 = boto3.client('ec2', 
+	endpoint_url='https://api.thegcloud.com', 
+	aws_access_key_id='APIKEY', 
+	aws_secret_access_key='APIHASH', 
+	region_name='ord1');
+
+resp = ec2.create_tags(Resources=["1111"], Tags=[ { 'Key': 'test-tag-1', 'Value': 'ignored' } ])
+```
+
 ```ruby
 require 'aws-sdk'
 
@@ -2885,6 +3818,28 @@ ec2 = Aws::EC2::Client.new(
 )
   
 i = ec2.create_tags({ resources: ["1111"], tags: [{ key: "test-tag", value: "" }] })
+```
+
+```php
+<?php
+
+require('vendor/autoload.php');
+
+use \Aws\Ec2\Ec2Client;
+
+
+$ec2Client = Ec2Client::factory(array(
+  'endpoint' => 'https://api.thegcloud.com',
+  'region' => 'ord1',
+  'credentials' => array(
+    'key' => 'APIKEY',
+    'secret' => 'APIHASH'
+  )
+));
+
+$ret = $ec2Client->createTags(array(
+		'Resources' => array('2632'),
+		'Tags' => array( array( 'Key' => 'test-tag-123', 'Value' => 'ignored' ))));
 ```
 
 ```php--raw
@@ -2925,8 +3880,8 @@ Adds or Overwrites one or more tags for a CloudMachine resource.
 </tr>
 <tr>
 <td>Tag</td>
-<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Tag_5ab3f8c30eab5').toggle();return false;">Members</a>)
-<table id='Tag_5ab3f8c30eab5' style='display:none'>
+<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Tag_5aba7bd3e3d94').toggle();return false;">Members</a>)
+<table id='Tag_5aba7bd3e3d94' style='display:none'>
 <tr><th>Name</th><th>Type</th><th>Required?</th><th>Default</th><th>Description</th></tr>
 <tr>
 <td>Value</td>
@@ -2969,6 +3924,18 @@ ec2 = boto.connect_ec2_endpoint(
 ret = ec2.delete_tags(['1111'], { 'MyTag': 'value-is-ignored' })
 ```
 
+```python--boto3
+import boto3
+
+ec2 = boto3.client('ec2', 
+	endpoint_url='https://api.thegcloud.com', 
+	aws_access_key_id='APIKEY', 
+	aws_secret_access_key='APIHASH', 
+	region_name='ord1');
+
+resp = ec2.delete_tags(Resources=['1111'], Tags= [ {'Key': 'test-tag', 'Value': 'ignored'} ])
+```
+
 ```ruby
 require 'aws-sdk'
 
@@ -2980,6 +3947,28 @@ ec2 = Aws::EC2::Client.new(
 )
   
 i = ec2.delete_tags({ resources: ["1111"], tags: [{ key: "test-tag", value: "" }] })
+```
+
+```php
+<?php
+
+require('vendor/autoload.php');
+
+use \Aws\Ec2\Ec2Client;
+
+
+$ec2Client = Ec2Client::factory(array(
+  'endpoint' => 'https://api.thegcloud.com',
+  'region' => 'ord1',
+  'credentials' => array(
+    'key' => 'APIKEY',
+    'secret' => 'APIHASH'
+  )
+));
+
+$ret = $ec2Client->deleteTags(array(
+		'Resources' => array('2632'),
+		'Tags' => array( array( 'Key' => 'test-tag-123', 'Value' => 'ignored' ))));
 ```
 
 ```php--raw
@@ -3020,8 +4009,8 @@ Deletes specified tags from resources.
 </tr>
 <tr>
 <td>Tag</td>
-<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Tag_5ab3f8c30eb75').toggle();return false;">Members</a>)
-<table id='Tag_5ab3f8c30eb75' style='display:none'>
+<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Tag_5aba7bd3e3e69').toggle();return false;">Members</a>)
+<table id='Tag_5aba7bd3e3e69' style='display:none'>
 <tr><th>Name</th><th>Type</th><th>Required?</th><th>Default</th><th>Description</th></tr>
 <tr>
 <td>Key</td>
@@ -3064,6 +4053,18 @@ ec2 = boto.connect_ec2_endpoint(
 tags = ec2.get_all_tags({"resource-id": ['1111']})
 ```
 
+```python--boto3
+import boto3
+
+ec2 = boto3.client('ec2', 
+	endpoint_url='https://api.thegcloud.com', 
+	aws_access_key_id='APIKEY', 
+	aws_secret_access_key='APIHASH', 
+	region_name='ord1');
+
+resp = ec2.describe_tags(Filters=[{ 'Name': 'resource-id', 'Values': ['1111'] }])
+```
+
 ```ruby
 require 'aws-sdk'
 
@@ -3074,7 +4075,32 @@ ec2 = Aws::EC2::Client.new(
   secret_access_key: 'APIHASH'
 )
   
-i = ec2.describe_tags({ filters: [ { name: "resource-id", values: ["2632"] } ] })
+i = ec2.describe_tags({ filters: [ { name: "resource-id", values: ["1111"] } ] })
+```
+
+```php
+<?php
+
+require('vendor/autoload.php');
+
+use \Aws\Ec2\Ec2Client;
+
+
+$ec2Client = Ec2Client::factory(array(
+  'endpoint' => 'https://api.thegcloud.com',
+  'region' => 'ord1',
+  'credentials' => array(
+    'key' => 'APIKEY',
+    'secret' => 'APIHASH'
+  )
+));
+
+$ret = $ec2Client->describeTags(array(
+		'Filters' => array(
+			array( 
+				'Name' => 'resource-id', 
+				'Values' => array('2632') )
+		)));
 ```
 
 ```php--raw
@@ -3114,8 +4140,8 @@ Describes one or more of tags assigned to CloudMachine.
 <table><tr><th>Name</th><th>Type</th><th>Required?</th><th>Default</th><th>Description</th></tr>
 <tr>
 <td>Filter</td>
-<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Filter_5ab3f8c30ec23').toggle();return false;">Members</a>)
-<table id='Filter_5ab3f8c30ec23' style='display:none'>
+<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Filter_5aba7bd3e3f2e').toggle();return false;">Members</a>)
+<table id='Filter_5aba7bd3e3f2e' style='display:none'>
 <tr><th>Name</th><th>Type</th><th>Required?</th><th>Default</th><th>Description</th></tr>
 <tr>
 <td>Name</td>
@@ -3145,5 +4171,6 @@ Describes one or more of tags assigned to CloudMachine.
 <td></td>
 </tr>
 </table>
+
 
 
