@@ -15,7 +15,6 @@ toc_footers:
 includes:
   - authentication
   - api 
-  - examples 
   - types
   - errors
 
