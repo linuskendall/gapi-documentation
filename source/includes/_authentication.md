@@ -129,8 +129,16 @@ function apiRequestURL($endpoint, $access_key, $secret_key, $Action, $Parameters
     .'&Action='.$Action
     .'&SignatureMethod=HmacSHA256'
     .'&SignatureVersion=2'
-    .'&Timestamp='.urlencode($timestamp->format("c"))
-    .$Parameters;
+    .'&Timestamp='.urlencode($timestamp->format("c"));
+
+  if(is_array($Parameters)) {
+    foreach($params as $key => $value) {
+      $qs .= "&".$key."=".urlencode($value);
+    }
+  } else {
+    if(substr($Parameters, 0, 1) !== '&') $qs .= '&';
+    $qs .= $Parameters;
+  }
 
   return $api_endpoint['scheme'].'://'.$api_endpoint['host'].'?'.$qs
     .'&Signature='.urlencode(
