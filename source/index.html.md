@@ -9,8 +9,8 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - php--raw: PHP (no SDK)
 
 toc_footers:
-  - <a href='http://linus.ccs-internal.thegcloud.com/index.php?act=api'>Get an API Key</a>
-  - <a href='http://linus.ccs-internal.thegcloud.com/'>GigeNET control panel</a>
+  - <a href='https://manage.thegcloud.com/index.php?act=api'>Get an API Key</a>
+  - <a href='https://manage.thegcloud.com/'>GigeNET control panel</a>
 
 includes:
   - authentication
@@ -23,9 +23,9 @@ search: true
 
 # Introduction
 
-Welcome to the Gigenet API version 2. This API is more secure, provides greater flexibility as well as compatibility with a large range of tools and SDKs. We recommend that all new integrations are built using this API.
+Welcome to the GigeNET API version 2. This API is more secure, provides greater flexibility as well as compatibility with a large range of tools and SDKs. We recommend that all new integrations are built using this API.
 
-This API version has been designed to be compatible to as large degree as possible with the Amazon Webservices API focusing primarily on the so-called [Elastic Compute Cloud API](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html). Compatibility with this API means that you can use the many different SDK available for different languages to interface with Gigenet's API just as you would Amazon web services. Some tools written for AWS might work without modification for use with our API, while others might require minimal changes. In addition to that, you can of course also set-up requests and connections directly to our API by easily implementing the interface yourself.
+This API version has been designed to be compatible to as large degree as possible with the Amazon Webservices API focusing primarily on the so-called [Elastic Compute Cloud API](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html). Compatibility with this API means that you can use the many different SDK available for different languages to interface with GigeNET's API just as you would Amazon web services. Some tools written for AWS might work without modification for use with our API, while others might require minimal changes. In addition to that, you can of course also set-up requests and connections directly to our API by easily implementing the interface yourself.
 
 This guide is meant for you to aquaint yourself with the subset of the AWS API that we implement. You can also reference with the [AWS API](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html) for more details, though beware that our API might ignore certain parameters specified in the AWS API documentation if they are incompatible or have no meaning with regards to our infrastructure.
 
@@ -87,7 +87,7 @@ Even though using one of these SDKs is the simplest way to access the API, you c
 
 ## Creating API tokens
 
-Before you can use the API, you will need to enable it,  create a new API applications and generate API keys which you will then be using to authenticate with the API. You can access the API settings rom the [GigeNET client dashboard](http://linus.ccs-internal.thegcloud.com/index.php?act=api).
+Before you can use the API, you will need to enable it,  create a new API applications and generate API keys which you will then be using to authenticate with the API. You can access the API settings rom the [GigeNET client dashboard](http://manage.thegcloud.com/index.php?act=api).
 
 ### Step 1. Create a new API application in the GigeNET client dashboard.
 

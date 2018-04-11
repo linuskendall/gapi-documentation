@@ -534,7 +534,7 @@ print apiRequest('DescribeInstances', 'InstanceId.1=2632');
             <availabilityZone>ord1</availabilityZone>
           </placement>
           <launchTime>2018-03-20T18:17:59+00:00</launchTime>
-          <privateDnsName>840bde.linus.kendal</privateDnsName>
+          <privateDnsName>840bde.thegcloud.com</privateDnsName>
           <privateIpAddress>10.60.235.153</privateIpAddress>
           <publicIpAddress>69.39.235.150</publicIpAddress>
           <state>
