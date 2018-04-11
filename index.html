@@ -384,17 +384,17 @@
           </li>
       </div>
         <ul class="toc-footer">
-            <li><a href='http://linus.ccs-internal.thegcloud.com/index.php?act=api'>Get an API Key</a></li>
-            <li><a href='http://linus.ccs-internal.thegcloud.com/'>GigeNET control panel</a></li>
+            <li><a href='https://manage.thegcloud.com/index.php?act=api'>Get an API Key</a></li>
+            <li><a href='https://manage.thegcloud.com/'>GigeNET control panel</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Gigenet API version 2. This API is more secure, provides greater flexibility as well as compatibility with a large range of tools and SDKs. We recommend that all new integrations are built using this API.</p>
+<p>Welcome to the GigeNET API version 2. This API is more secure, provides greater flexibility as well as compatibility with a large range of tools and SDKs. We recommend that all new integrations are built using this API.</p>
 
-<p>This API version has been designed to be compatible to as large degree as possible with the Amazon Webservices API focusing primarily on the so-called <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html">Elastic Compute Cloud API</a>. Compatibility with this API means that you can use the many different SDK available for different languages to interface with Gigenet&#39;s API just as you would Amazon web services. Some tools written for AWS might work without modification for use with our API, while others might require minimal changes. In addition to that, you can of course also set-up requests and connections directly to our API by easily implementing the interface yourself.</p>
+<p>This API version has been designed to be compatible to as large degree as possible with the Amazon Webservices API focusing primarily on the so-called <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html">Elastic Compute Cloud API</a>. Compatibility with this API means that you can use the many different SDK available for different languages to interface with GigeNET&#39;s API just as you would Amazon web services. Some tools written for AWS might work without modification for use with our API, while others might require minimal changes. In addition to that, you can of course also set-up requests and connections directly to our API by easily implementing the interface yourself.</p>
 
 <p>This guide is meant for you to aquaint yourself with the subset of the AWS API that we implement. You can also reference with the <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html">AWS API</a> for more details, though beware that our API might ignore certain parameters specified in the AWS API documentation if they are incompatible or have no meaning with regards to our infrastructure.</p>
 <h2 id='overview-of-api'>Overview of API</h2>
@@ -438,7 +438,7 @@ php composer.phar require aws/aws-sdk-php
 
 <p>Even though using one of these SDKs is the simplest way to access the API, you can also manually use the REST API using custom code to create integrations without an SDK. In this documentation we have provied some examples of how to authenticate and make API calls without using an SDK.</p>
 <h2 id='creating-api-tokens'>Creating API tokens</h2>
-<p>Before you can use the API, you will need to enable it,  create a new API applications and generate API keys which you will then be using to authenticate with the API. You can access the API settings rom the <a href="http://linus.ccs-internal.thegcloud.com/index.php?act=api">GigeNET client dashboard</a>.</p>
+<p>Before you can use the API, you will need to enable it,  create a new API applications and generate API keys which you will then be using to authenticate with the API. You can access the API settings rom the <a href="http://manage.thegcloud.com/index.php?act=api">GigeNET client dashboard</a>.</p>
 <h3 id='step-1-create-a-new-api-application-in-the-gigenet-client-dashboard'>Step 1. Create a new API application in the GigeNET client dashboard.</h3>
 <p><img src="images/1_step_new_app.gif" title="Creating a new application" alt="Create an application" /></p>
 
@@ -676,8 +676,16 @@ You use your <code>APIHASH</code> to generate the signature, but this should nev
     <span class="o">.</span><span class="s1">'&amp;Action='</span><span class="o">.</span><span class="nv">$Action</span>
     <span class="o">.</span><span class="s1">'&amp;SignatureMethod=HmacSHA256'</span>
     <span class="o">.</span><span class="s1">'&amp;SignatureVersion=2'</span>
-    <span class="o">.</span><span class="s1">'&amp;Timestamp='</span><span class="o">.</span><span class="nb">urlencode</span><span class="p">(</span><span class="nv">$timestamp</span><span class="o">-&gt;</span><span class="na">format</span><span class="p">(</span><span class="s2">"c"</span><span class="p">))</span>
-    <span class="o">.</span><span class="nv">$Parameters</span><span class="p">;</span>
+    <span class="o">.</span><span class="s1">'&amp;Timestamp='</span><span class="o">.</span><span class="nb">urlencode</span><span class="p">(</span><span class="nv">$timestamp</span><span class="o">-&gt;</span><span class="na">format</span><span class="p">(</span><span class="s2">"c"</span><span class="p">));</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="nb">is_array</span><span class="p">(</span><span class="nv">$Parameters</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">foreach</span><span class="p">(</span><span class="nv">$params</span> <span class="k">as</span> <span class="nv">$key</span> <span class="o">=&gt;</span> <span class="nv">$value</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nv">$qs</span> <span class="o">.=</span> <span class="s2">"&amp;"</span><span class="o">.</span><span class="nv">$key</span><span class="o">.</span><span class="s2">"="</span><span class="o">.</span><span class="nb">urlencode</span><span class="p">(</span><span class="nv">$value</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nb">substr</span><span class="p">(</span><span class="nv">$Parameters</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">!==</span> <span class="s1">'&amp;'</span><span class="p">)</span> <span class="nv">$qs</span> <span class="o">.=</span> <span class="s1">'&amp;'</span><span class="p">;</span>
+    <span class="nv">$qs</span> <span class="o">.=</span> <span class="nv">$Parameters</span><span class="p">;</span>
+  <span class="p">}</span>
 
   <span class="k">return</span> <span class="nv">$api_endpoint</span><span class="p">[</span><span class="s1">'scheme'</span><span class="p">]</span><span class="o">.</span><span class="s1">'://'</span><span class="o">.</span><span class="nv">$api_endpoint</span><span class="p">[</span><span class="s1">'host'</span><span class="p">]</span><span class="o">.</span><span class="s1">'?'</span><span class="o">.</span><span class="nv">$qs</span>
     <span class="o">.</span><span class="s1">'&amp;Signature='</span><span class="o">.</span><span class="nb">urlencode</span><span class="p">(</span>
@@ -1196,7 +1204,7 @@ You use your <code>APIHASH</code> to generate the signature, but this should nev
             <span class="nt">&lt;availabilityZone&gt;</span>ord1<span class="nt">&lt;/availabilityZone&gt;</span>
           <span class="nt">&lt;/placement&gt;</span>
           <span class="nt">&lt;launchTime&gt;</span>2018-03-20T18:17:59+00:00<span class="nt">&lt;/launchTime&gt;</span>
-          <span class="nt">&lt;privateDnsName&gt;</span>840bde.linus.kendal<span class="nt">&lt;/privateDnsName&gt;</span>
+          <span class="nt">&lt;privateDnsName&gt;</span>840bde.thegcloud.com<span class="nt">&lt;/privateDnsName&gt;</span>
           <span class="nt">&lt;privateIpAddress&gt;</span>10.60.235.153<span class="nt">&lt;/privateIpAddress&gt;</span>
           <span class="nt">&lt;publicIpAddress&gt;</span>69.39.235.150<span class="nt">&lt;/publicIpAddress&gt;</span>
           <span class="nt">&lt;state&gt;</span>
