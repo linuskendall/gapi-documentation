@@ -49,7 +49,7 @@ All standard AWS SDKs should work with the API. Compatibility has been verified 
  * boto2 (Python)
  * boto3 (Python)
 
-Other SDKs can be found on [the AWS pages](https://aws.amazon.com/tools/)..
+Other SDKs can be found on [the AWS pages](https://aws.amazon.com/tools/).
 
 ## Installing the SDK
 
