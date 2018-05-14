@@ -13,9 +13,9 @@ gcl.1 | 1 | 1024 | 30 | 1 TB | Balanced
 gcl.2 | 1 | 2048 | 60 | 1 TB | Balanced
 gcl.4 | 2 | 4096 | 90 | 5 TB | Balanced
 gcl.8 | 4 | 8192 | 120 | 5 TB | Balanced
-gcl.core.2 | 2 | 2048 | 5 TB | 60 | Core
-gcl.core.4 | 4 | 4096 | 5 TB | 90 | Core
-gcl.core.8 | 8 | 8192 | 5 TB | 180 | Core
-gcl.max.8 | 2 | 8192 | 5 TB | 180 | Max
-gcl.max.16 | 4 | 16384 | 5 TB | 360 | Max
+gcl.core.2 | 2 | 2048 | 60 | 5 TB | Core
+gcl.core.4 | 4 | 4096 | 90 | 5 TB | Core
+gcl.core.8 | 8 | 8192 | 180 | 5 TB | Core
+gcl.max.8 | 2 | 8192 | 180 | 5 TB  | Max
+gcl.max.16 | 4 | 16384 | 360| 5 TB | Max
 
