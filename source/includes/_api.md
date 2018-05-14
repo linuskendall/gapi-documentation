@@ -1,4 +1,3 @@
-
 # Cloud Machines
 
 Use this section of the API to create, run, start, stop, reboot and change any available settings for your Cloud Machines (VMs).
@@ -534,7 +533,7 @@ print apiRequest('DescribeInstances', 'InstanceId.1=2632');
             <availabilityZone>ord1</availabilityZone>
           </placement>
           <launchTime>2018-03-20T18:17:59+00:00</launchTime>
-          <privateDnsName>840bde.thegcloud.com</privateDnsName>
+          <privateDnsName>840bde.linus.kendal</privateDnsName>
           <privateIpAddress>10.60.235.153</privateIpAddress>
           <publicIpAddress>69.39.235.150</publicIpAddress>
           <state>
@@ -583,8 +582,8 @@ Describe the full properties for one or more instances.
 </tr>
 <tr>
 <td>Filter</td>
-<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Filter_5aba7bd3e3237').toggle();return false;">Members</a>)
-<table id='Filter_5aba7bd3e3237' style='display:none'>
+<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Filter_5af9b3d83cb8c').toggle();return false;">Members</a>)
+<table id='Filter_5af9b3d83cb8c' style='display:none'>
 <tr><th>Name</th><th>Type</th><th>Required?</th><th>Default</th><th>Description</th></tr>
 <tr>
 <td>Name</td>
@@ -947,8 +946,8 @@ Describe reservation details for one or more instances.
 </tr>
 <tr>
 <td>Filter</td>
-<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Filter_5aba7bd3e32e6').toggle();return false;">Members</a>)
-<table id='Filter_5aba7bd3e32e6' style='display:none'>
+<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Filter_5af9b3d83cc38').toggle();return false;">Members</a>)
+<table id='Filter_5af9b3d83cc38' style='display:none'>
 <tr><th>Name</th><th>Type</th><th>Required?</th><th>Default</th><th>Description</th></tr>
 <tr>
 <td>Name</td>
@@ -1014,106 +1013,64 @@ print apiRequest('DescribeVmTypes');
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
-<DescribeVmTypesResponse>
-  <instanceTypeSet>
-    <item>
-      <name>bal.lg</name>
-      <cores>1</cores>
-      <memory>2048</memory>
-      <disk>40</disk>
-    </item>
-    <item>
-      <name>bal.lg2</name>
-      <cores>2</cores>
-      <memory>4096</memory>
-      <disk>40</disk>
-    </item>
-    <item>
-      <name>bal.small</name>
-      <cores>1</cores>
-      <memory>512</memory>
-      <disk>10</disk>
-    </item>
-    <item>
-      <name>bal.xlg</name>
-      <cores>2</cores>
-      <memory>4096</memory>
-      <disk>60</disk>
-    </item>
-    <item>
-      <name>bal.xxlg</name>
-      <cores>4</cores>
-      <memory>8192</memory>
-      <disk>80</disk>
-    </item>
-    <item>
-      <name>client_1544-bal.small</name>
-      <cores>1</cores>
-      <memory>512</memory>
-      <disk>10</disk>
-    </item>
-    <item>
-      <name>cpu.lg</name>
-      <cores>4</cores>
-      <memory>3200</memory>
-      <disk>60</disk>
-    </item>
-    <item>
-      <name>cpu.med</name>
-      <cores>3</cores>
-      <memory>2176</memory>
-      <disk>40</disk>
-    </item>
-    <item>
-      <name>cpu.xxlg</name>
-      <cores>8</cores>
-      <memory>8192</memory>
-      <disk>80</disk>
-    </item>
-    <item>
-      <name>mem.lg</name>
-      <cores>6</cores>
-      <memory>11008</memory>
-      <disk>80</disk>
-    </item>
-    <item>
-      <name>mem.med</name>
-      <cores>5</cores>
-      <memory>10240</memory>
-      <disk>60</disk>
-    </item>
-    <item>
-      <name>mem.small</name>
-      <cores>4</cores>
-      <memory>8192</memory>
-      <disk>30</disk>
-    </item>
-    <item>
-      <name>mem.xlg</name>
-      <cores>7</cores>
-      <memory>14080</memory>
-      <disk>80</disk>
-    </item>
-    <item>
-      <name>mem.xxlg</name>
-      <cores>8</cores>
-      <memory>16384</memory>
-      <disk>80</disk>
-    </item>
-    <item>
-      <name>new.small</name>
-      <cores>1</cores>
-      <memory>512</memory>
-      <disk>10</disk>
-    </item>
-    <item>
-      <name>promo.bal.small</name>
-      <cores>1</cores>
-      <memory>1024</memory>
-      <disk>30</disk>
-    </item>
-  </instanceTypeSet>
-  <RequestID>34636afbe612d70e21d0a44d40f47376</RequestID>
+<DescribeVmTypesResponse xmlns="http://ec2.amazonaws.com/doc/2016-11-15/">
+    <instanceTypeSet>
+        <item>
+            <name>gcl.1</name>
+            <cores>1</cores>
+            <memory>1024</memory>
+            <disk>30</disk>
+        </item>
+        <item>
+            <name>gcl.2</name>
+            <cores>1</cores>
+            <memory>2048</memory>
+            <disk>60</disk>
+        </item>
+        <item>
+            <name>gcl.4</name>
+            <cores>2</cores>
+            <memory>4096</memory>
+            <disk>90</disk>
+        </item>
+        <item>
+            <name>gcl.8</name>
+            <cores>4</cores>
+            <memory>8192</memory>
+            <disk>120</disk>
+        </item>
+        <item>
+            <name>gcl.core.2</name>
+            <cores>2</cores>
+            <memory>2048</memory>
+            <disk>60</disk>
+        </item>
+        <item>
+            <name>gcl.core.4</name>
+            <cores>4</cores>
+            <memory>4096</memory>
+            <disk>90</disk>
+        </item>
+        <item>
+            <name>gcl.core.8</name>
+            <cores>8</cores>
+            <memory>8192</memory>
+            <disk>180</disk>
+        </item>
+        <item>
+            <name>gcl.max.8</name>
+            <cores>2</cores>
+            <memory>8192</memory>
+            <disk>180</disk>
+        </item>
+        <item>
+            <name>gcl.max.16</name>
+            <cores>4</cores>
+            <memory>16384</memory>
+            <disk>360</disk>
+        </item>
+    </instanceTypeSet>
+    <RequestID>d4e0b3938bac43f61dd933567c1416dd</RequestID>
 </DescribeVmTypesResponse>
 ```
 
@@ -1703,33 +1660,32 @@ print apiRequest('RunInstances', 'ImageId=centos64_6.4&InstanceType=bal.small');
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <RunInstancesResponse>
-  <reservation>
-    <ownerId>4444</ownerId>
-    <instances>
-      <item>
-        <imageId>centos64_6.4</imageId>
-        <instanceId>2760</instanceId>
-        <instanceType>custom_bal_1vcpu_512m_10gb</instanceType>
-        <placement>
-          <availabilityZone>ord1</availabilityZone>
-        </placement>
-        <launchTime>1970-01-01T00:00:00+00:00</launchTime>
-        <privateDnsName>ord1-9cf49e</privateDnsName>
-        <privateIpAddress>none</privateIpAddress>
-        <publicIpAddress>69.39.235.179</publicIpAddress>
-        <state>
-          <code>4</code>
-          <name>unknown</name>
-        </state>
-        <architecture>x86_64</architecture>
-        <virtualizationType>hvm</virtualizationType>
-        <rootDeviceName>/dev/sda1</rootDeviceName>
-        <hypervisor>xenserver</hypervisor>
-        <platform>Centos</platform>
-        <tagSet/>
-      </item>
-    </instances>
-  </reservation>
+  <reservationId>0</reservationId>
+  <ownerId>4444</ownerId>
+  <instancesSet>
+    <item>
+      <imageId>centos64_6.4</imageId>
+      <instanceId>2760</instanceId>
+      <instanceType>custom_bal_1vcpu_512m_10gb</instanceType>
+      <placement>
+        <availabilityZone>ord1</availabilityZone>
+      </placement>
+      <launchTime>1970-01-01T00:00:00+00:00</launchTime>
+      <privateDnsName>ord1-9cf49e</privateDnsName>
+      <privateIpAddress>none</privateIpAddress>
+      <publicIpAddress>69.39.235.179</publicIpAddress>
+      <state>
+        <code>4</code>
+        <name>unknown</name>
+      </state>
+      <architecture>x86_64</architecture>
+      <virtualizationType>hvm</virtualizationType>
+      <rootDeviceName>/dev/sda1</rootDeviceName>
+      <hypervisor>xenserver</hypervisor>
+      <platform>Centos</platform>
+      <tagSet/>
+    </item>
+  </instancesSet>
   <RequestID>7809f80abbd92cda0dbfa22e0daf1862</RequestID>
 </RunInstancesResponse>
 ```
@@ -1762,8 +1718,8 @@ Create one or more new instances with the given specifications.
 </tr>
 <tr>
 <td>NetworkInterface</td>
-<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#NetworkInterface_5aba7bd3e351c').toggle();return false;">Members</a>)
-<table id='NetworkInterface_5aba7bd3e351c' style='display:none'>
+<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#NetworkInterface_5af9b3d83cec2').toggle();return false;">Members</a>)
+<table id='NetworkInterface_5af9b3d83cec2' style='display:none'>
 <tr><th>Name</th><th>Type</th><th>Required?</th><th>Default</th><th>Description</th></tr>
 <tr>
 <td>AssociatePublicIpAddress</td>
@@ -1810,13 +1766,13 @@ Create one or more new instances with the given specifications.
 <td>BillingTerm</td>
 <td><a href='#types'>int</a></td>
 <td>N</td>
-<td>1</td>
+<td>730</td>
 <td>The billing term to use in hours. Valid values are 1 (hourly), 730 (monthly) and 2190 (quarterly). Note: this is an extension to the AWS API and might not be supported by SDKs.</td>
 </tr>
 <tr>
 <td>TagSpecification</td>
-<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#TagSpecification_5aba7bd3e3584').toggle();return false;">Members</a>)
-<table id='TagSpecification_5aba7bd3e3584' style='display:none'>
+<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#TagSpecification_5af9b3d83cf0e').toggle();return false;">Members</a>)
+<table id='TagSpecification_5af9b3d83cf0e' style='display:none'>
 <tr><th>Name</th><th>Type</th><th>Required?</th><th>Default</th><th>Description</th></tr>
 <tr>
 <td>ResourceType</td>
@@ -1827,8 +1783,8 @@ Create one or more new instances with the given specifications.
 </tr>
 <tr>
 <td>Tags</td>
-<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Tags_5aba7bd3e35f4').toggle();return false;">Members</a>)
-<table id='Tags_5aba7bd3e35f4' style='display:none'>
+<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Tags_5af9b3d83cf52').toggle();return false;">Members</a>)
+<table id='Tags_5af9b3d83cf52' style='display:none'>
 <tr><th>Name</th><th>Type</th><th>Required?</th><th>Default</th><th>Description</th></tr>
 <tr>
 <td>Key</td>
@@ -3158,8 +3114,8 @@ Describes one, several or all of the data centers returning information about it
 <table><tr><th>Name</th><th>Type</th><th>Description</th></tr>
 <tr>
 <td>availabilityZoneInfoSet</td>
-<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#availabilityZoneInfoSet_5aba7bd3e3a98').toggle();return false;">Members</a>)
-<table id='availabilityZoneInfoSet_5aba7bd3e3a98' style='display:none'>
+<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#availabilityZoneInfoSet_5af9b3d83d429').toggle();return false;">Members</a>)
+<table id='availabilityZoneInfoSet_5af9b3d83d429' style='display:none'>
 <tr><th>Name</th><th>Type</th><th>Description</th></tr>
 <tr>
 <td>regionName</td>
@@ -3299,8 +3255,8 @@ Describes the API end points available in different data centers/regions.
 <table><tr><th>Name</th><th>Type</th><th>Description</th></tr>
 <tr>
 <td>regionInfoSet</td>
-<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#regionInfoSet_5aba7bd3e3b66').toggle();return false;">Members</a>)
-<table id='regionInfoSet_5aba7bd3e3b66' style='display:none'>
+<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#regionInfoSet_5af9b3d83d4d3').toggle();return false;">Members</a>)
+<table id='regionInfoSet_5af9b3d83d4d3' style='display:none'>
 <tr><th>Name</th><th>Type</th><th>Description</th></tr>
 <tr>
 <td>regionEndpoint</td>
@@ -3880,8 +3836,8 @@ Adds or Overwrites one or more tags for a CloudMachine resource.
 </tr>
 <tr>
 <td>Tag</td>
-<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Tag_5aba7bd3e3d94').toggle();return false;">Members</a>)
-<table id='Tag_5aba7bd3e3d94' style='display:none'>
+<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Tag_5af9b3d83d725').toggle();return false;">Members</a>)
+<table id='Tag_5af9b3d83d725' style='display:none'>
 <tr><th>Name</th><th>Type</th><th>Required?</th><th>Default</th><th>Description</th></tr>
 <tr>
 <td>Value</td>
@@ -4009,8 +3965,8 @@ Deletes specified tags from resources.
 </tr>
 <tr>
 <td>Tag</td>
-<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Tag_5aba7bd3e3e69').toggle();return false;">Members</a>)
-<table id='Tag_5aba7bd3e3e69' style='display:none'>
+<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Tag_5af9b3d83d7d2').toggle();return false;">Members</a>)
+<table id='Tag_5af9b3d83d7d2' style='display:none'>
 <tr><th>Name</th><th>Type</th><th>Required?</th><th>Default</th><th>Description</th></tr>
 <tr>
 <td>Key</td>
@@ -4140,8 +4096,8 @@ Describes one or more of tags assigned to CloudMachine.
 <table><tr><th>Name</th><th>Type</th><th>Required?</th><th>Default</th><th>Description</th></tr>
 <tr>
 <td>Filter</td>
-<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Filter_5aba7bd3e3f2e').toggle();return false;">Members</a>)
-<table id='Filter_5aba7bd3e3f2e' style='display:none'>
+<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Filter_5af9b3d83d876').toggle();return false;">Members</a>)
+<table id='Filter_5af9b3d83d876' style='display:none'>
 <tr><th>Name</th><th>Type</th><th>Required?</th><th>Default</th><th>Description</th></tr>
 <tr>
 <td>Name</td>
@@ -4171,6 +4127,10 @@ Describes one or more of tags assigned to CloudMachine.
 <td></td>
 </tr>
 </table>
+
+
+
+
 
 
 
