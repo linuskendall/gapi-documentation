@@ -240,3 +240,4 @@ ec2 = Aws::EC2::Resource.new(
 Once you have an API key and hash you can use them together with the SDK of your choice, or generated signed requests through your own code. Sample code for connecting to the API is available on the left.
 
 
+
