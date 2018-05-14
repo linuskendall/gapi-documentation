@@ -1,4 +1,4 @@
-# Types
+# Attribute Types
 
 Below you can find description and example of the types of parameters that you can provide to the API calls.
 
