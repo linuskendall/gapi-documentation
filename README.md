@@ -25,3 +25,5 @@ Adding a language here causes the API examples to be generated for each call tha
 You can run a local live updating copy of this documentation through `bundle exec middleman server`. See the slate docs for details on dependencies.
 
 The static version of the documentation is generated into the `gh-pages` branch. Access this branch anytime to download the API docs. To regenerate the contents of this branch run the `deploy.sh` script in this directory.
+
+To generate a static local build version you can also run `bundle exec middleman build --clean`, this will create a build in the folder `build/` which you can then copy and use freely.
