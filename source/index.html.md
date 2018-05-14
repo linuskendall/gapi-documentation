@@ -16,7 +16,7 @@ includes:
   - authentication
   - api 
   - instance_types
-  - types
+  - attribute_types
   - errors
 
 search: true
