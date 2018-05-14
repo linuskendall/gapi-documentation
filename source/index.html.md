@@ -15,6 +15,7 @@ toc_footers:
 includes:
   - authentication
   - api 
+  - instance_types
   - types
   - errors
 
