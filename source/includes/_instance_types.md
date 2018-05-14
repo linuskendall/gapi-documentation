@@ -19,4 +19,4 @@ gcl.core.8 | 8 | 8192 | 180 | 5 TB | GCL Core 8
 gcl.max.8 | 2 | 8192 | 180 | 5 TB  | GCL Max 8
 gcl.max.16 | 4 | 16384 | 360 | 5 TB | GCL Max 16
 
-For pricing information please see our [https://orders.gigenetcloud.com/](order page).
+For pricing information please see our [order page](https://orders.gigenetcloud.com/).
