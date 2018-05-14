@@ -1207,7 +1207,7 @@ You use your <code>APIHASH</code> to generate the signature, but this should nev
             <span class="nt">&lt;availabilityZone&gt;</span>ord1<span class="nt">&lt;/availabilityZone&gt;</span>
           <span class="nt">&lt;/placement&gt;</span>
           <span class="nt">&lt;launchTime&gt;</span>2018-03-20T18:17:59+00:00<span class="nt">&lt;/launchTime&gt;</span>
-          <span class="nt">&lt;privateDnsName&gt;</span>840bde.thegcloud.com<span class="nt">&lt;/privateDnsName&gt;</span>
+          <span class="nt">&lt;privateDnsName&gt;</span>840bde.linus.kendal<span class="nt">&lt;/privateDnsName&gt;</span>
           <span class="nt">&lt;privateIpAddress&gt;</span>10.60.235.153<span class="nt">&lt;/privateIpAddress&gt;</span>
           <span class="nt">&lt;publicIpAddress&gt;</span>69.39.235.150<span class="nt">&lt;/publicIpAddress&gt;</span>
           <span class="nt">&lt;state&gt;</span>
@@ -1253,8 +1253,8 @@ You use your <code>APIHASH</code> to generate the signature, but this should nev
 </tr>
 <tr>
 <td>Filter</td>
-<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Filter_5aba7bd3e3237').toggle();return false;">Members</a>)
-<table id='Filter_5aba7bd3e3237' style='display:none'>
+<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Filter_5af9b3d83cb8c').toggle();return false;">Members</a>)
+<table id='Filter_5af9b3d83cb8c' style='display:none'>
 <tr><th>Name</th><th>Type</th><th>Required?</th><th>Default</th><th>Description</th></tr>
 <tr>
 <td>Name</td>
@@ -1599,8 +1599,8 @@ You use your <code>APIHASH</code> to generate the signature, but this should nev
 </tr>
 <tr>
 <td>Filter</td>
-<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Filter_5aba7bd3e32e6').toggle();return false;">Members</a>)
-<table id='Filter_5aba7bd3e32e6' style='display:none'>
+<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Filter_5af9b3d83cc38').toggle();return false;">Members</a>)
+<table id='Filter_5af9b3d83cc38' style='display:none'>
 <tr><th>Name</th><th>Type</th><th>Required?</th><th>Default</th><th>Description</th></tr>
 <tr>
 <td>Name</td>
@@ -1651,106 +1651,64 @@ You use your <code>APIHASH</code> to generate the signature, but this should nev
 <p>Sample DescribeVmTypes XML return:</p>
 </blockquote>
 <pre class="highlight xml tab-xml"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
-<span class="nt">&lt;DescribeVmTypesResponse&gt;</span>
-  <span class="nt">&lt;instanceTypeSet&gt;</span>
-    <span class="nt">&lt;item&gt;</span>
-      <span class="nt">&lt;name&gt;</span>bal.lg<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;cores&gt;</span>1<span class="nt">&lt;/cores&gt;</span>
-      <span class="nt">&lt;memory&gt;</span>2048<span class="nt">&lt;/memory&gt;</span>
-      <span class="nt">&lt;disk&gt;</span>40<span class="nt">&lt;/disk&gt;</span>
-    <span class="nt">&lt;/item&gt;</span>
-    <span class="nt">&lt;item&gt;</span>
-      <span class="nt">&lt;name&gt;</span>bal.lg2<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;cores&gt;</span>2<span class="nt">&lt;/cores&gt;</span>
-      <span class="nt">&lt;memory&gt;</span>4096<span class="nt">&lt;/memory&gt;</span>
-      <span class="nt">&lt;disk&gt;</span>40<span class="nt">&lt;/disk&gt;</span>
-    <span class="nt">&lt;/item&gt;</span>
-    <span class="nt">&lt;item&gt;</span>
-      <span class="nt">&lt;name&gt;</span>bal.small<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;cores&gt;</span>1<span class="nt">&lt;/cores&gt;</span>
-      <span class="nt">&lt;memory&gt;</span>512<span class="nt">&lt;/memory&gt;</span>
-      <span class="nt">&lt;disk&gt;</span>10<span class="nt">&lt;/disk&gt;</span>
-    <span class="nt">&lt;/item&gt;</span>
-    <span class="nt">&lt;item&gt;</span>
-      <span class="nt">&lt;name&gt;</span>bal.xlg<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;cores&gt;</span>2<span class="nt">&lt;/cores&gt;</span>
-      <span class="nt">&lt;memory&gt;</span>4096<span class="nt">&lt;/memory&gt;</span>
-      <span class="nt">&lt;disk&gt;</span>60<span class="nt">&lt;/disk&gt;</span>
-    <span class="nt">&lt;/item&gt;</span>
-    <span class="nt">&lt;item&gt;</span>
-      <span class="nt">&lt;name&gt;</span>bal.xxlg<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;cores&gt;</span>4<span class="nt">&lt;/cores&gt;</span>
-      <span class="nt">&lt;memory&gt;</span>8192<span class="nt">&lt;/memory&gt;</span>
-      <span class="nt">&lt;disk&gt;</span>80<span class="nt">&lt;/disk&gt;</span>
-    <span class="nt">&lt;/item&gt;</span>
-    <span class="nt">&lt;item&gt;</span>
-      <span class="nt">&lt;name&gt;</span>client_1544-bal.small<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;cores&gt;</span>1<span class="nt">&lt;/cores&gt;</span>
-      <span class="nt">&lt;memory&gt;</span>512<span class="nt">&lt;/memory&gt;</span>
-      <span class="nt">&lt;disk&gt;</span>10<span class="nt">&lt;/disk&gt;</span>
-    <span class="nt">&lt;/item&gt;</span>
-    <span class="nt">&lt;item&gt;</span>
-      <span class="nt">&lt;name&gt;</span>cpu.lg<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;cores&gt;</span>4<span class="nt">&lt;/cores&gt;</span>
-      <span class="nt">&lt;memory&gt;</span>3200<span class="nt">&lt;/memory&gt;</span>
-      <span class="nt">&lt;disk&gt;</span>60<span class="nt">&lt;/disk&gt;</span>
-    <span class="nt">&lt;/item&gt;</span>
-    <span class="nt">&lt;item&gt;</span>
-      <span class="nt">&lt;name&gt;</span>cpu.med<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;cores&gt;</span>3<span class="nt">&lt;/cores&gt;</span>
-      <span class="nt">&lt;memory&gt;</span>2176<span class="nt">&lt;/memory&gt;</span>
-      <span class="nt">&lt;disk&gt;</span>40<span class="nt">&lt;/disk&gt;</span>
-    <span class="nt">&lt;/item&gt;</span>
-    <span class="nt">&lt;item&gt;</span>
-      <span class="nt">&lt;name&gt;</span>cpu.xxlg<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;cores&gt;</span>8<span class="nt">&lt;/cores&gt;</span>
-      <span class="nt">&lt;memory&gt;</span>8192<span class="nt">&lt;/memory&gt;</span>
-      <span class="nt">&lt;disk&gt;</span>80<span class="nt">&lt;/disk&gt;</span>
-    <span class="nt">&lt;/item&gt;</span>
-    <span class="nt">&lt;item&gt;</span>
-      <span class="nt">&lt;name&gt;</span>mem.lg<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;cores&gt;</span>6<span class="nt">&lt;/cores&gt;</span>
-      <span class="nt">&lt;memory&gt;</span>11008<span class="nt">&lt;/memory&gt;</span>
-      <span class="nt">&lt;disk&gt;</span>80<span class="nt">&lt;/disk&gt;</span>
-    <span class="nt">&lt;/item&gt;</span>
-    <span class="nt">&lt;item&gt;</span>
-      <span class="nt">&lt;name&gt;</span>mem.med<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;cores&gt;</span>5<span class="nt">&lt;/cores&gt;</span>
-      <span class="nt">&lt;memory&gt;</span>10240<span class="nt">&lt;/memory&gt;</span>
-      <span class="nt">&lt;disk&gt;</span>60<span class="nt">&lt;/disk&gt;</span>
-    <span class="nt">&lt;/item&gt;</span>
-    <span class="nt">&lt;item&gt;</span>
-      <span class="nt">&lt;name&gt;</span>mem.small<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;cores&gt;</span>4<span class="nt">&lt;/cores&gt;</span>
-      <span class="nt">&lt;memory&gt;</span>8192<span class="nt">&lt;/memory&gt;</span>
-      <span class="nt">&lt;disk&gt;</span>30<span class="nt">&lt;/disk&gt;</span>
-    <span class="nt">&lt;/item&gt;</span>
-    <span class="nt">&lt;item&gt;</span>
-      <span class="nt">&lt;name&gt;</span>mem.xlg<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;cores&gt;</span>7<span class="nt">&lt;/cores&gt;</span>
-      <span class="nt">&lt;memory&gt;</span>14080<span class="nt">&lt;/memory&gt;</span>
-      <span class="nt">&lt;disk&gt;</span>80<span class="nt">&lt;/disk&gt;</span>
-    <span class="nt">&lt;/item&gt;</span>
-    <span class="nt">&lt;item&gt;</span>
-      <span class="nt">&lt;name&gt;</span>mem.xxlg<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;cores&gt;</span>8<span class="nt">&lt;/cores&gt;</span>
-      <span class="nt">&lt;memory&gt;</span>16384<span class="nt">&lt;/memory&gt;</span>
-      <span class="nt">&lt;disk&gt;</span>80<span class="nt">&lt;/disk&gt;</span>
-    <span class="nt">&lt;/item&gt;</span>
-    <span class="nt">&lt;item&gt;</span>
-      <span class="nt">&lt;name&gt;</span>new.small<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;cores&gt;</span>1<span class="nt">&lt;/cores&gt;</span>
-      <span class="nt">&lt;memory&gt;</span>512<span class="nt">&lt;/memory&gt;</span>
-      <span class="nt">&lt;disk&gt;</span>10<span class="nt">&lt;/disk&gt;</span>
-    <span class="nt">&lt;/item&gt;</span>
-    <span class="nt">&lt;item&gt;</span>
-      <span class="nt">&lt;name&gt;</span>promo.bal.small<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;cores&gt;</span>1<span class="nt">&lt;/cores&gt;</span>
-      <span class="nt">&lt;memory&gt;</span>1024<span class="nt">&lt;/memory&gt;</span>
-      <span class="nt">&lt;disk&gt;</span>30<span class="nt">&lt;/disk&gt;</span>
-    <span class="nt">&lt;/item&gt;</span>
-  <span class="nt">&lt;/instanceTypeSet&gt;</span>
-  <span class="nt">&lt;RequestID&gt;</span>34636afbe612d70e21d0a44d40f47376<span class="nt">&lt;/RequestID&gt;</span>
+<span class="nt">&lt;DescribeVmTypesResponse</span> <span class="na">xmlns=</span><span class="s">"http://ec2.amazonaws.com/doc/2016-11-15/"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;instanceTypeSet&gt;</span>
+        <span class="nt">&lt;item&gt;</span>
+            <span class="nt">&lt;name&gt;</span>gcl.1<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;cores&gt;</span>1<span class="nt">&lt;/cores&gt;</span>
+            <span class="nt">&lt;memory&gt;</span>1024<span class="nt">&lt;/memory&gt;</span>
+            <span class="nt">&lt;disk&gt;</span>30<span class="nt">&lt;/disk&gt;</span>
+        <span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;item&gt;</span>
+            <span class="nt">&lt;name&gt;</span>gcl.2<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;cores&gt;</span>1<span class="nt">&lt;/cores&gt;</span>
+            <span class="nt">&lt;memory&gt;</span>2048<span class="nt">&lt;/memory&gt;</span>
+            <span class="nt">&lt;disk&gt;</span>60<span class="nt">&lt;/disk&gt;</span>
+        <span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;item&gt;</span>
+            <span class="nt">&lt;name&gt;</span>gcl.4<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;cores&gt;</span>2<span class="nt">&lt;/cores&gt;</span>
+            <span class="nt">&lt;memory&gt;</span>4096<span class="nt">&lt;/memory&gt;</span>
+            <span class="nt">&lt;disk&gt;</span>90<span class="nt">&lt;/disk&gt;</span>
+        <span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;item&gt;</span>
+            <span class="nt">&lt;name&gt;</span>gcl.8<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;cores&gt;</span>4<span class="nt">&lt;/cores&gt;</span>
+            <span class="nt">&lt;memory&gt;</span>8192<span class="nt">&lt;/memory&gt;</span>
+            <span class="nt">&lt;disk&gt;</span>120<span class="nt">&lt;/disk&gt;</span>
+        <span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;item&gt;</span>
+            <span class="nt">&lt;name&gt;</span>gcl.core.2<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;cores&gt;</span>2<span class="nt">&lt;/cores&gt;</span>
+            <span class="nt">&lt;memory&gt;</span>2048<span class="nt">&lt;/memory&gt;</span>
+            <span class="nt">&lt;disk&gt;</span>60<span class="nt">&lt;/disk&gt;</span>
+        <span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;item&gt;</span>
+            <span class="nt">&lt;name&gt;</span>gcl.core.4<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;cores&gt;</span>4<span class="nt">&lt;/cores&gt;</span>
+            <span class="nt">&lt;memory&gt;</span>4096<span class="nt">&lt;/memory&gt;</span>
+            <span class="nt">&lt;disk&gt;</span>90<span class="nt">&lt;/disk&gt;</span>
+        <span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;item&gt;</span>
+            <span class="nt">&lt;name&gt;</span>gcl.core.8<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;cores&gt;</span>8<span class="nt">&lt;/cores&gt;</span>
+            <span class="nt">&lt;memory&gt;</span>8192<span class="nt">&lt;/memory&gt;</span>
+            <span class="nt">&lt;disk&gt;</span>180<span class="nt">&lt;/disk&gt;</span>
+        <span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;item&gt;</span>
+            <span class="nt">&lt;name&gt;</span>gcl.max.8<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;cores&gt;</span>2<span class="nt">&lt;/cores&gt;</span>
+            <span class="nt">&lt;memory&gt;</span>8192<span class="nt">&lt;/memory&gt;</span>
+            <span class="nt">&lt;disk&gt;</span>180<span class="nt">&lt;/disk&gt;</span>
+        <span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;item&gt;</span>
+            <span class="nt">&lt;name&gt;</span>gcl.max.16<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;cores&gt;</span>4<span class="nt">&lt;/cores&gt;</span>
+            <span class="nt">&lt;memory&gt;</span>16384<span class="nt">&lt;/memory&gt;</span>
+            <span class="nt">&lt;disk&gt;</span>360<span class="nt">&lt;/disk&gt;</span>
+        <span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;/instanceTypeSet&gt;</span>
+    <span class="nt">&lt;RequestID&gt;</span>d4e0b3938bac43f61dd933567c1416dd<span class="nt">&lt;/RequestID&gt;</span>
 <span class="nt">&lt;/DescribeVmTypesResponse&gt;</span>
 </code></pre>
 <p>Describes one or more instance types.</p>
@@ -2247,33 +2205,32 @@ You use your <code>APIHASH</code> to generate the signature, but this should nev
 </blockquote>
 <pre class="highlight xml tab-xml"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 <span class="nt">&lt;RunInstancesResponse&gt;</span>
-  <span class="nt">&lt;reservation&gt;</span>
-    <span class="nt">&lt;ownerId&gt;</span>4444<span class="nt">&lt;/ownerId&gt;</span>
-    <span class="nt">&lt;instances&gt;</span>
-      <span class="nt">&lt;item&gt;</span>
-        <span class="nt">&lt;imageId&gt;</span>centos64_6.4<span class="nt">&lt;/imageId&gt;</span>
-        <span class="nt">&lt;instanceId&gt;</span>2760<span class="nt">&lt;/instanceId&gt;</span>
-        <span class="nt">&lt;instanceType&gt;</span>custom_bal_1vcpu_512m_10gb<span class="nt">&lt;/instanceType&gt;</span>
-        <span class="nt">&lt;placement&gt;</span>
-          <span class="nt">&lt;availabilityZone&gt;</span>ord1<span class="nt">&lt;/availabilityZone&gt;</span>
-        <span class="nt">&lt;/placement&gt;</span>
-        <span class="nt">&lt;launchTime&gt;</span>1970-01-01T00:00:00+00:00<span class="nt">&lt;/launchTime&gt;</span>
-        <span class="nt">&lt;privateDnsName&gt;</span>ord1-9cf49e<span class="nt">&lt;/privateDnsName&gt;</span>
-        <span class="nt">&lt;privateIpAddress&gt;</span>none<span class="nt">&lt;/privateIpAddress&gt;</span>
-        <span class="nt">&lt;publicIpAddress&gt;</span>69.39.235.179<span class="nt">&lt;/publicIpAddress&gt;</span>
-        <span class="nt">&lt;state&gt;</span>
-          <span class="nt">&lt;code&gt;</span>4<span class="nt">&lt;/code&gt;</span>
-          <span class="nt">&lt;name&gt;</span>unknown<span class="nt">&lt;/name&gt;</span>
-        <span class="nt">&lt;/state&gt;</span>
-        <span class="nt">&lt;architecture&gt;</span>x86_64<span class="nt">&lt;/architecture&gt;</span>
-        <span class="nt">&lt;virtualizationType&gt;</span>hvm<span class="nt">&lt;/virtualizationType&gt;</span>
-        <span class="nt">&lt;rootDeviceName&gt;</span>/dev/sda1<span class="nt">&lt;/rootDeviceName&gt;</span>
-        <span class="nt">&lt;hypervisor&gt;</span>xenserver<span class="nt">&lt;/hypervisor&gt;</span>
-        <span class="nt">&lt;platform&gt;</span>Centos<span class="nt">&lt;/platform&gt;</span>
-        <span class="nt">&lt;tagSet/&gt;</span>
-      <span class="nt">&lt;/item&gt;</span>
-    <span class="nt">&lt;/instances&gt;</span>
-  <span class="nt">&lt;/reservation&gt;</span>
+  <span class="nt">&lt;reservationId&gt;</span>0<span class="nt">&lt;/reservationId&gt;</span>
+  <span class="nt">&lt;ownerId&gt;</span>4444<span class="nt">&lt;/ownerId&gt;</span>
+  <span class="nt">&lt;instancesSet&gt;</span>
+    <span class="nt">&lt;item&gt;</span>
+      <span class="nt">&lt;imageId&gt;</span>centos64_6.4<span class="nt">&lt;/imageId&gt;</span>
+      <span class="nt">&lt;instanceId&gt;</span>2760<span class="nt">&lt;/instanceId&gt;</span>
+      <span class="nt">&lt;instanceType&gt;</span>custom_bal_1vcpu_512m_10gb<span class="nt">&lt;/instanceType&gt;</span>
+      <span class="nt">&lt;placement&gt;</span>
+        <span class="nt">&lt;availabilityZone&gt;</span>ord1<span class="nt">&lt;/availabilityZone&gt;</span>
+      <span class="nt">&lt;/placement&gt;</span>
+      <span class="nt">&lt;launchTime&gt;</span>1970-01-01T00:00:00+00:00<span class="nt">&lt;/launchTime&gt;</span>
+      <span class="nt">&lt;privateDnsName&gt;</span>ord1-9cf49e<span class="nt">&lt;/privateDnsName&gt;</span>
+      <span class="nt">&lt;privateIpAddress&gt;</span>none<span class="nt">&lt;/privateIpAddress&gt;</span>
+      <span class="nt">&lt;publicIpAddress&gt;</span>69.39.235.179<span class="nt">&lt;/publicIpAddress&gt;</span>
+      <span class="nt">&lt;state&gt;</span>
+        <span class="nt">&lt;code&gt;</span>4<span class="nt">&lt;/code&gt;</span>
+        <span class="nt">&lt;name&gt;</span>unknown<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;/state&gt;</span>
+      <span class="nt">&lt;architecture&gt;</span>x86_64<span class="nt">&lt;/architecture&gt;</span>
+      <span class="nt">&lt;virtualizationType&gt;</span>hvm<span class="nt">&lt;/virtualizationType&gt;</span>
+      <span class="nt">&lt;rootDeviceName&gt;</span>/dev/sda1<span class="nt">&lt;/rootDeviceName&gt;</span>
+      <span class="nt">&lt;hypervisor&gt;</span>xenserver<span class="nt">&lt;/hypervisor&gt;</span>
+      <span class="nt">&lt;platform&gt;</span>Centos<span class="nt">&lt;/platform&gt;</span>
+      <span class="nt">&lt;tagSet/&gt;</span>
+    <span class="nt">&lt;/item&gt;</span>
+  <span class="nt">&lt;/instancesSet&gt;</span>
   <span class="nt">&lt;RequestID&gt;</span>7809f80abbd92cda0dbfa22e0daf1862<span class="nt">&lt;/RequestID&gt;</span>
 <span class="nt">&lt;/RunInstancesResponse&gt;</span>
 </code></pre>
@@ -2303,8 +2260,8 @@ You use your <code>APIHASH</code> to generate the signature, but this should nev
 </tr>
 <tr>
 <td>NetworkInterface</td>
-<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#NetworkInterface_5aba7bd3e351c').toggle();return false;">Members</a>)
-<table id='NetworkInterface_5aba7bd3e351c' style='display:none'>
+<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#NetworkInterface_5af9b3d83cec2').toggle();return false;">Members</a>)
+<table id='NetworkInterface_5af9b3d83cec2' style='display:none'>
 <tr><th>Name</th><th>Type</th><th>Required?</th><th>Default</th><th>Description</th></tr>
 <tr>
 <td>AssociatePublicIpAddress</td>
@@ -2352,13 +2309,13 @@ You use your <code>APIHASH</code> to generate the signature, but this should nev
 <td>BillingTerm</td>
 <td><a href='#types'>int</a></td>
 <td>N</td>
-<td>1</td>
+<td>730</td>
 <td>The billing term to use in hours. Valid values are 1 (hourly), 730 (monthly) and 2190 (quarterly). Note: this is an extension to the AWS API and might not be supported by SDKs.</td>
 </tr>
 <tr>
 <td>TagSpecification</td>
-<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#TagSpecification_5aba7bd3e3584').toggle();return false;">Members</a>)
-<table id='TagSpecification_5aba7bd3e3584' style='display:none'>
+<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#TagSpecification_5af9b3d83cf0e').toggle();return false;">Members</a>)
+<table id='TagSpecification_5af9b3d83cf0e' style='display:none'>
 <tr><th>Name</th><th>Type</th><th>Required?</th><th>Default</th><th>Description</th></tr>
 <tr>
 <td>ResourceType</td>
@@ -2369,8 +2326,8 @@ You use your <code>APIHASH</code> to generate the signature, but this should nev
 </tr>
 <tr>
 <td>Tags</td>
-<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Tags_5aba7bd3e35f4').toggle();return false;">Members</a>)
-<table id='Tags_5aba7bd3e35f4' style='display:none'>
+<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Tags_5af9b3d83cf52').toggle();return false;">Members</a>)
+<table id='Tags_5af9b3d83cf52' style='display:none'>
 <tr><th>Name</th><th>Type</th><th>Required?</th><th>Default</th><th>Description</th></tr>
 <tr>
 <td>Key</td>
@@ -3459,8 +3416,8 @@ You use your <code>APIHASH</code> to generate the signature, but this should nev
 <table><tr><th>Name</th><th>Type</th><th>Description</th></tr>
 <tr>
 <td>availabilityZoneInfoSet</td>
-<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#availabilityZoneInfoSet_5aba7bd3e3a98').toggle();return false;">Members</a>)
-<table id='availabilityZoneInfoSet_5aba7bd3e3a98' style='display:none'>
+<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#availabilityZoneInfoSet_5af9b3d83d429').toggle();return false;">Members</a>)
+<table id='availabilityZoneInfoSet_5af9b3d83d429' style='display:none'>
 <tr><th>Name</th><th>Type</th><th>Description</th></tr>
 <tr>
 <td>regionName</td>
@@ -3581,8 +3538,8 @@ A set of information related to the queried data centers.</td>
 <table><tr><th>Name</th><th>Type</th><th>Description</th></tr>
 <tr>
 <td>regionInfoSet</td>
-<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#regionInfoSet_5aba7bd3e3b66').toggle();return false;">Members</a>)
-<table id='regionInfoSet_5aba7bd3e3b66' style='display:none'>
+<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#regionInfoSet_5af9b3d83d4d3').toggle();return false;">Members</a>)
+<table id='regionInfoSet_5af9b3d83d4d3' style='display:none'>
 <tr><th>Name</th><th>Type</th><th>Description</th></tr>
 <tr>
 <td>regionEndpoint</td>
@@ -4065,8 +4022,8 @@ A set describing the queried regions/API endpoints.</td>
 </tr>
 <tr>
 <td>Tag</td>
-<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Tag_5aba7bd3e3d94').toggle();return false;">Members</a>)
-<table id='Tag_5aba7bd3e3d94' style='display:none'>
+<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Tag_5af9b3d83d725').toggle();return false;">Members</a>)
+<table id='Tag_5af9b3d83d725' style='display:none'>
 <tr><th>Name</th><th>Type</th><th>Required?</th><th>Default</th><th>Description</th></tr>
 <tr>
 <td>Value</td>
@@ -4176,8 +4133,8 @@ A set describing the queried regions/API endpoints.</td>
 </tr>
 <tr>
 <td>Tag</td>
-<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Tag_5aba7bd3e3e69').toggle();return false;">Members</a>)
-<table id='Tag_5aba7bd3e3e69' style='display:none'>
+<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Tag_5af9b3d83d7d2').toggle();return false;">Members</a>)
+<table id='Tag_5af9b3d83d7d2' style='display:none'>
 <tr><th>Name</th><th>Type</th><th>Required?</th><th>Default</th><th>Description</th></tr>
 <tr>
 <td>Key</td>
@@ -4289,8 +4246,8 @@ A set describing the queried regions/API endpoints.</td>
 <table><tr><th>Name</th><th>Type</th><th>Required?</th><th>Default</th><th>Description</th></tr>
 <tr>
 <td>Filter</td>
-<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Filter_5aba7bd3e3f2e').toggle();return false;">Members</a>)
-<table id='Filter_5aba7bd3e3f2e' style='display:none'>
+<td><a href='#types'>array</a>&nbsp;(<a href='#' onClick="$('#Filter_5af9b3d83d876').toggle();return false;">Members</a>)
+<table id='Filter_5af9b3d83d876' style='display:none'>
 <tr><th>Name</th><th>Type</th><th>Required?</th><th>Default</th><th>Description</th></tr>
 <tr>
 <td>Name</td>
@@ -4325,9 +4282,9 @@ A set describing the queried regions/API endpoints.</td>
 <p>Below you can find our current list of instance types. A fully dynamically updated list can also be fetched using the DescribeVmTypes API call. The different types offer different performance profiles:</p>
 
 <ul>
-<li>Balanced: A standard configuration with a good mix of Memory and Compute.</li>
-<li>Max: Powerful configuration when maximum Memory is required.</li>
-<li>Core: Useful for applications that require more Compute.</li>
+<li><em>Balanced (GCL)</em>: A standard configuration with a good mix of Memory and Compute.</li>
+<li><em>Core (GCL Core)</em>: Useful for applications that require more Compute.</li>
+<li><em>Max (GCL Max)</em>: Powerful configuration when maximum Memory is required.</li>
 </ul>
 
 <table><thead>
@@ -4337,7 +4294,7 @@ A set describing the queried regions/API endpoints.</td>
 <th>Memory</th>
 <th>Disk</th>
 <th>Bandwidth</th>
-<th>Performance type</th>
+<th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
@@ -4346,7 +4303,7 @@ A set describing the queried regions/API endpoints.</td>
 <td>1024</td>
 <td>30</td>
 <td>1 TB</td>
-<td>Balanced</td>
+<td>GCL 1</td>
 </tr>
 <tr>
 <td>gcl.2</td>
@@ -4354,7 +4311,7 @@ A set describing the queried regions/API endpoints.</td>
 <td>2048</td>
 <td>60</td>
 <td>1 TB</td>
-<td>Balanced</td>
+<td>GCL 2</td>
 </tr>
 <tr>
 <td>gcl.4</td>
@@ -4362,7 +4319,7 @@ A set describing the queried regions/API endpoints.</td>
 <td>4096</td>
 <td>90</td>
 <td>5 TB</td>
-<td>Balanced</td>
+<td>GCL 4</td>
 </tr>
 <tr>
 <td>gcl.8</td>
@@ -4370,7 +4327,7 @@ A set describing the queried regions/API endpoints.</td>
 <td>8192</td>
 <td>120</td>
 <td>5 TB</td>
-<td>Balanced</td>
+<td>GCL 8</td>
 </tr>
 <tr>
 <td>gcl.core.2</td>
@@ -4378,7 +4335,7 @@ A set describing the queried regions/API endpoints.</td>
 <td>2048</td>
 <td>60</td>
 <td>5 TB</td>
-<td>Core</td>
+<td>GCL Core 2</td>
 </tr>
 <tr>
 <td>gcl.core.4</td>
@@ -4386,7 +4343,7 @@ A set describing the queried regions/API endpoints.</td>
 <td>4096</td>
 <td>90</td>
 <td>5 TB</td>
-<td>Core</td>
+<td>GCL Core 4</td>
 </tr>
 <tr>
 <td>gcl.core.8</td>
@@ -4394,7 +4351,7 @@ A set describing the queried regions/API endpoints.</td>
 <td>8192</td>
 <td>180</td>
 <td>5 TB</td>
-<td>Core</td>
+<td>GCL Core 8</td>
 </tr>
 <tr>
 <td>gcl.max.8</td>
@@ -4402,7 +4359,7 @@ A set describing the queried regions/API endpoints.</td>
 <td>8192</td>
 <td>180</td>
 <td>5 TB</td>
-<td>Max</td>
+<td>GCL Max 8</td>
 </tr>
 <tr>
 <td>gcl.max.16</td>
@@ -4410,9 +4367,11 @@ A set describing the queried regions/API endpoints.</td>
 <td>16384</td>
 <td>360</td>
 <td>5 TB</td>
-<td>Max</td>
+<td>GCL Max 16</td>
 </tr>
 </tbody></table>
+
+<p>For pricing information please see our <a href="order%20page">https://orders.gigenetcloud.com/</a>.</p>
 <h1 id='attribute-types'>Attribute Types</h1>
 <p>Below you can find description and example of the types of parameters that you can provide to the API calls.</p>
 
